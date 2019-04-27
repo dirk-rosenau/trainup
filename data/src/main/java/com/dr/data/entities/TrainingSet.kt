@@ -1,4 +1,4 @@
-package com.example.data.entities
+package com.dr.data.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

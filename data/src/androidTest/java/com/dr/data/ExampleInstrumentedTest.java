@@ -1,4 +1,4 @@
-package com.example.data;
+package com.dr.data;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;

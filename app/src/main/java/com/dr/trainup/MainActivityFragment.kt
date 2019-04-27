@@ -1,4 +1,4 @@
-package com.example.trainup
+package com.dr.trainup
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle

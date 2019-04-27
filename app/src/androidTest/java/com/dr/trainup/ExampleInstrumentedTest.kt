@@ -1,4 +1,4 @@
-package com.example.trainup
+package com.dr.trainup
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

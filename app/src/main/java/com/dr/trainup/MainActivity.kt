@@ -1,4 +1,4 @@
-package com.example.trainup
+package com.dr.trainup
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

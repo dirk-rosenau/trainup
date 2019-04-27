@@ -1,4 +1,4 @@
-package com.example.trainup
+package com.dr.trainup
 
 import org.junit.Test
 

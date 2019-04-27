@@ -1,8 +1,10 @@
-package com.example.data
+package com.example.data.entities
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
+@Entity
 data class TrainingDay(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val date: Date)

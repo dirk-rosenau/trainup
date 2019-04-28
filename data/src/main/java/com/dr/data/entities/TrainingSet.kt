@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
-            entity = TrainUnit::class,
+            entity = Exercise::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("unitId"),
             onDelete = ForeignKey.CASCADE

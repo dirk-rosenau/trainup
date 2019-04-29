@@ -9,8 +9,8 @@ import io.reactivex.Flowable
 @Dao
 interface TrainingDayDao {
 
-    @Query("SELECT * FROM trainingday")
-    fun getAllPeople(): Flowable<List<TrainingDay>>
+    @Query("SELECT * FROM training_days")
+    fun getTrainingDays(): Flowable<List<TrainingDay>>
 
     @Insert
     fun insert(trainingDay: TrainingDay)

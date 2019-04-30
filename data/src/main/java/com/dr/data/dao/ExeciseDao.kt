@@ -10,4 +10,6 @@ interface ExeciseDao {
 
     @Query("SELECT * FROM exercises")
     fun getExercises(): Flowable<List<Exercise>>
+
+    //   @Insert(onConflict = OnConflictStrategy.REPLACE)
 }

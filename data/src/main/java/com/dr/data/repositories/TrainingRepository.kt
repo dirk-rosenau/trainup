@@ -4,5 +4,5 @@ import com.dr.data.entities.Exercise
 import io.reactivex.Observable
 
 interface TrainingRepository {
-    fun getExercises(): Observable<Exercise>
+    fun getExercises(): Observable<List<Exercise>>
 }

@@ -1,9 +1,11 @@
 package com.dr.trainup
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dr.data.entities.Exercise
+import com.dr.trainup.databinding.ItemExcerciseBinding
 
 class ExerciseOverviewAdapter(private val exercises: List<Exercise>) :
     RecyclerView.Adapter<ExerciseOverviewAdapter.ExerciseViewHolder>() {
@@ -11,15 +13,17 @@ class ExerciseOverviewAdapter(private val exercises: List<Exercise>) :
 
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.binding.viewModel = ExerciseOverviewItemViewModel(exercises[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.item_excercise, parent, false)
+        return ExerciseViewHolder(view)
     }
 
 
-    class ExerciseViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //val binding = ColorItemBinding.bind(itemView)
+    class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val binding = ItemExcerciseBinding.bind(itemView)
     }
 }

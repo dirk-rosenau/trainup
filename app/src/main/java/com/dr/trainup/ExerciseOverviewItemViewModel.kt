@@ -1,5 +1,5 @@
 package com.dr.trainup
 
-class ExerciseOverviewItemViewModel {
+import com.dr.data.entities.Exercise
 
-}
+class ExerciseOverviewItemViewModel(val exercise: Exercise)

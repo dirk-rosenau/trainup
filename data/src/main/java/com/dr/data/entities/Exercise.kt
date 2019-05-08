@@ -8,5 +8,5 @@ data class Exercise(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
-    val imagePath: String
+    val imagePath: String?
 )

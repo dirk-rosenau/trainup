@@ -35,6 +35,7 @@ class OverviewFragment : Fragment() {
             Exercise(1, "Liegestütze", null),
             Exercise(2, "Situps", null)
         )
+
         binding.exercises.adapter = ExerciseOverviewAdapter(exerciseList)
     }
 

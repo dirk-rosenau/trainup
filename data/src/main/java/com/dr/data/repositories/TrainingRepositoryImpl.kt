@@ -7,8 +7,17 @@ import javax.inject.Inject
 
 class TrainingRepositoryImpl @Inject constructor(private val database: AppDatabase) : TrainingRepository {
 
-    override fun getExercises(): Observable<List<Exercise>> =
-        database.excerciseDao().getExercises()
+    override fun getExercises(): Observable<List<Exercise>> {
+
+        // database.exerciseDao().getExercises()
+        val exerciseList = listOf(
+            Exercise(0, "Bankpflücken", null),
+            Exercise(1, "Liegestütze", null),
+            Exercise(2, "Situps", null)
+        )
+        return Observable.just(exerciseList)
+
+    }
 
 
 }

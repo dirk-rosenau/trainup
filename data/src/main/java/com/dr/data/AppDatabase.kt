@@ -11,6 +11,6 @@ import com.dr.data.entities.Exercise
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun excerciseDao(): ExeciseDao
+    abstract fun exerciseDao(): ExeciseDao
 
 }

@@ -22,13 +22,24 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <!--  <include layout="@layout/content_main"/> -->
+    <!-- app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
     <fragment
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:navGraph="@navigation/nav_graph" app:defaultNavHost="true"
             android:id="@+id/nav_fragment"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            app:layout_anchorGravity="bottom|end"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="72dp"
+            app:layout_behavior="com.dr.trainup.behavior.BottomNavigationFABBehavior"
+            app:srcCompat="@drawable/ic_action_add"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -36,16 +47,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:itemBackground="@color/colorPrimary"
+            app:layout_behavior="com.dr.trainup.behavior.BottomNavigationBehavior"
             app:itemIconTint="#ffffff"
             app:itemTextColor="#ffffff"
             app:menu="@menu/menu_tabbar"/>
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_action_add"/> -->
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

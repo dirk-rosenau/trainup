@@ -1,0 +1,12 @@
+package com.dr.trainup
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+
+class TrainingEditActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_training_edit)
+    }
+}

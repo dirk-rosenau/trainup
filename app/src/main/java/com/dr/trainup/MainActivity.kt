@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -28,10 +29,11 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
         navController.navigate(R.id.overviewFragment)
 
-        /*   fab.setOnClickListener { view ->
-               Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                   .setAction("Action", null).show()
-           }*/
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+            navController.navigate(R.id.trainingEditActivity)
+        }
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector

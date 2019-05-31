@@ -17,5 +17,5 @@
               android:label="fragment_overview" tools:layout="@layout/fragment_overview"/>
     <activity
             android:id="@+id/trainingEditActivity"
-            android:name="com.dr.trainup.TrainingEditActivity"/>
+            android:name="com.dr.trainup.trainingeditor.ui.TrainingEditActivity"/>
 </navigation>

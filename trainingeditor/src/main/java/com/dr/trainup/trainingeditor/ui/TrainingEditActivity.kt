@@ -1,7 +1,8 @@
-package com.dr.trainup
+package com.dr.trainup.trainingeditor.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.dr.trainup.trainingeditor.R
 
 class TrainingEditActivity : AppCompatActivity() {
 

@@ -6,7 +6,7 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class FragmentModule {
-    @FragmentScope
+    @de.trainup.common.di.FragmentScope
     @ContributesAndroidInjector()
     abstract fun overviewFragmentInjector(): OverviewFragment
 }

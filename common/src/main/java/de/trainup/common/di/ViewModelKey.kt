@@ -1,4 +1,4 @@
-package com.dr.trainup.di
+package de.trainup.common.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

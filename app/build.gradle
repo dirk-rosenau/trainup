@@ -44,6 +44,7 @@ dependencies {
 
     implementation project(':data')
     implementation project(':trainingeditor')
+    implementation project(':common')
 
     def support_version = "2.1.0-alpha02"
 

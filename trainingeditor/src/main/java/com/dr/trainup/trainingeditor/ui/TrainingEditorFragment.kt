@@ -33,8 +33,10 @@ class TrainingEditorFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // TODO: Inject vm
-        viewModel = ViewModelProviders.of(this).get(TrainingEditorViewModel::class.java)
+        // viewModel = ViewModelProviders.of(this).get(TrainingEditorViewModel::class.java)
 
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
+        viewModel.addParameter()
     }
 
 }

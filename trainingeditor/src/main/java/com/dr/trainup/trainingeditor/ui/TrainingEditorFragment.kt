@@ -1,5 +1,6 @@
 package com.dr.trainup.trainingeditor.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.dr.trainup.trainingeditor.R
 import com.dr.trainup.trainingeditor.TrainingEditorViewModel
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 
@@ -28,6 +30,11 @@ class TrainingEditorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.training_editor_fragment, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

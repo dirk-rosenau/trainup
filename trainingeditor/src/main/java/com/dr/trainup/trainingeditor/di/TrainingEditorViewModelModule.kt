@@ -7,10 +7,10 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ViewModelModule {
+abstract class TrainingEditorViewModelModule {
 
     @Binds
     @IntoMap
     @de.trainup.common.di.ViewModelKey(TrainingEditorViewModel::class)
-    abstract fun overviewFragmentViewModel(viewModel: TrainingEditorViewModel): ViewModel
+    abstract fun trainingEditorFragmentViewModel(viewModel: TrainingEditorViewModel): ViewModel
 }

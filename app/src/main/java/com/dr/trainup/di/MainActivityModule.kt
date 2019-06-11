@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
 import de.trainup.common.ViewModelFactory
+import de.trainup.common.di.ActivityScope
 import javax.inject.Provider
 
 @Module(includes = [FragmentModule::class, ViewModelModule::class])

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.dr.trainup.trainingeditor.R
 import com.dr.trainup.trainingeditor.TrainingEditorViewModel
+import com.dr.trainup.trainingeditor.databinding.TrainingEditorFragmentBinding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -25,11 +26,16 @@ class TrainingEditorFragment : Fragment() {
 
     private lateinit var viewModel: TrainingEditorViewModel
 
+    private lateinit var binding: TrainingEditorFragmentBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.training_editor_fragment, container, false)
+        val view = inflater.inflate(R.layout.training_editor_fragment, container, false)
+        binding = TrainingEditorFragmentBinding.bind(view)
+
+        return view
     }
 
     override fun onAttach(context: Context) {
@@ -43,7 +49,7 @@ class TrainingEditorFragment : Fragment() {
         // viewModel = ViewModelProviders.of(this).get(TrainingEditorViewModel::class.java)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
-        viewModel.addParameter()
+        binding.vm = viewModel
     }
 
 }

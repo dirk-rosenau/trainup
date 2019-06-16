@@ -1,5 +1,6 @@
 package com.dr.trainup.trainingeditor
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
@@ -8,5 +9,9 @@ class TrainingEditorViewModel @Inject constructor() : ViewModel() {
 
     fun addParameter() {
 
+
+        //val param = ExerciseParameter()
+
+        Log.d("vm", "clicked")
     }
 }

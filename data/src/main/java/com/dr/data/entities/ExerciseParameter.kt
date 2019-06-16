@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
         )
     )
 )
-data class UnitProperty(
+data class ExerciseParameter(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val setId: Long,

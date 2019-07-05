@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +13,8 @@ import com.dr.trainup.trainingeditor.R
 import com.dr.trainup.trainingeditor.TrainingEditorViewModel
 import com.dr.trainup.trainingeditor.databinding.TrainingEditorFragmentBinding
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.parameter_view.view.*
+import kotlinx.android.synthetic.main.training_editor_fragment.*
 import javax.inject.Inject
 
 
@@ -50,16 +51,32 @@ class TrainingEditorFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
         binding.vm = viewModel
-        viewModel.addButtonLiveData.observe(viewLifecycleOwner, Observer { addExerciseParameter() })
+        viewModel.addButtonLiveData.observe(viewLifecycleOwner, Observer { /*addExerciseParameter()*/ })
+
+        setUpTrainingParameters()
+    }
+
+    // in the future, initially load from db, in the future ^ 2, use button add parameter
+    private fun setUpTrainingParameters() {
+        addExerciseParameter("1", "Sitzeinstellung", "4", "")
+        addExerciseParameter("2", "Gewicht", "80", "kg")
+
+        addExerciseParameter("3", "Wiederholungen", "11", "mal")
+    }
+
+    private fun persist() {
 
     }
 
-    private fun addExerciseParameter() {
-        // TODO open dialog to specify parameter, then add view (maybe https://stackoverflow.com/questions/6216547/android-dynamically-add-views-into-view)
-        val view = TextView(requireContext())
-        view.setText("Stub")
-        binding.parameterContainer.addView(view)
-
+    private fun addExerciseParameter(tag: String, text: String, value: String, unit: String) {
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.parameter_view, parameter_container, false)
+        //val binding = ParameterViewBinding.bind(view)
+        // TODO: Viewmodel für jeden parameter oder gemeinsames, darin die daten speichern. Daten auslesen dann aus diesem VM,
+        // so dass man die generierten views gar nicht mehr anfassen muss
+        view.parameter_name.text = text
+        view.parameter_value.setText(value)
+        view.parameter_unit.text = unit
+        view.tag = tag
+        parameter_container.addView(view)
     }
-
 }

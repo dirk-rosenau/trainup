@@ -5,7 +5,7 @@
     <data>
         <variable
                 name="vm"
-                type="com.dr.trainup.trainingeditor.TrainingEditorViewModel"/>
+                type="com.dr.trainup.trainingeditor.ui.vm.TrainingEditorViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

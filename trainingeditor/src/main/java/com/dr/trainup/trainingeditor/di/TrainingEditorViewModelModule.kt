@@ -1,7 +1,7 @@
 package com.dr.trainup.trainingeditor.di
 
 import androidx.lifecycle.ViewModel
-import com.dr.trainup.trainingeditor.TrainingEditorViewModel
+import com.dr.trainup.trainingeditor.ui.vm.TrainingEditorViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

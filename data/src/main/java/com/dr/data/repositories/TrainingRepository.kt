@@ -1,8 +1,9 @@
 package com.dr.data.repositories
 
-import com.dr.data.entities.Exercise
+import com.dr.data.entities.Station
 import io.reactivex.Observable
 
 interface TrainingRepository {
-    fun getExercises(): Observable<List<Exercise>>
+
+    fun getStations(): Observable<List<Station>>
 }

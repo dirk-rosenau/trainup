@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dr.data.entities.Exercise
+import com.dr.data.entities.Station
 import com.dr.trainup.databinding.FragmentOverviewBinding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -48,16 +48,16 @@ class OverviewFragment : Fragment() {
 
         binding.exercises.layoutManager = LinearLayoutManager(requireContext())
 
-        val observer = Observer<List<Exercise>> {
+        val observer = Observer<List<Station>> {
             handleExercisesLoaded(it)
         }
-        viewModel.getExerciseData().observe(viewLifecycleOwner, observer)
+        viewModel.getStationData().observe(viewLifecycleOwner, observer)
 
         viewModel.loadExercises()
 
     }
 
-    private fun handleExercisesLoaded(exerciseList: List<Exercise>) {
+    private fun handleExercisesLoaded(exerciseList: List<Station>) {
         binding.exercises.adapter = ExerciseOverviewAdapter(exerciseList)
 
     }

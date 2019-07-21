@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dr.data.entities.Exercise
+import com.dr.data.entities.Station
 import com.dr.trainup.databinding.ItemExcerciseBinding
 
-class ExerciseOverviewAdapter(private val exercises: List<Exercise>) :
+class ExerciseOverviewAdapter(private val exercises: List<Station>) :
     RecyclerView.Adapter<ExerciseOverviewAdapter.ExerciseViewHolder>() {
     override fun getItemCount(): Int = exercises.size
 

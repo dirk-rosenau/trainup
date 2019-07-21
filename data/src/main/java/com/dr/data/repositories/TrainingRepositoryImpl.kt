@@ -1,23 +1,18 @@
 package com.dr.data.repositories
 
 import com.dr.data.AppDatabase
-import com.dr.data.entities.Exercise
+import com.dr.data.entities.Station
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class TrainingRepositoryImpl @Inject constructor(private val database: AppDatabase) : TrainingRepository {
 
-    override fun getExercises(): Observable<List<Exercise>> {
-
-        // database.exerciseDao().getExercises()
-        val exerciseList = listOf(
-            Exercise(0, "Bankpflücken", null),
-            Exercise(1, "Liegestütze", null),
-            Exercise(2, "Situps", null)
+    override fun getStations(): Observable<List<Station>> {
+        val stationList = listOf(
+            Station(0, "Bankdrücken", "4"),
+            Station(1, "Liegestütze", "-"),
+            Station(2, "Butterfly", "1")
         )
-        return Observable.just(exerciseList)
-
+        return Observable.just(stationList)
     }
-
-
 }

@@ -3,7 +3,7 @@ package com.dr.trainup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dr.data.entities.Exercise
+import com.dr.data.entities.Station
 import com.dr.data.repositories.TrainingRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -13,19 +13,19 @@ import javax.inject.Inject
 
 class OverviewFragmentVM @Inject constructor(private val trainingRepository: TrainingRepository) : ViewModel() {
 
-    val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
-    private val exerciseData = MutableLiveData<List<Exercise>>()
-    fun getExerciseData(): LiveData<List<Exercise>> = exerciseData
+    private val stationData = MutableLiveData<List<Station>>()
+    fun getStationData(): LiveData<List<Station>> = stationData
 
     fun loadExercises() {
-        trainingRepository.getExercises().observeOn(AndroidSchedulers.mainThread())
+        trainingRepository.getStations().observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(onNext = { processData(it) },
                 onError = { processError(it) }).addTo(compositeDisposable)
     }
 
-    private fun processData(it: List<Exercise>?) {
-        exerciseData.value = it
+    private fun processData(it: List<Station>?) {
+        stationData.value = it
     }
 
     private fun processError(it: Throwable) {

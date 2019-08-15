@@ -23,7 +23,7 @@
         />
 
         <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline1"
+                android:id="@+id/guideline_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintGuide_begin="120dp"
@@ -32,14 +32,14 @@
 
         <EditText android:id="@+id/parameter_value"
                   android:layout_width="0dp" android:layout_height="wrap_content"
-                  app:layout_constraintStart_toEndOf="@id/guideline1"
+                  app:layout_constraintStart_toEndOf="@id/guideline_left"
                   app:layout_constraintEnd_toStartOf="@id/parameter_unit"
                   app:layout_constraintTop_toTopOf="parent"
                   android:text="@{itemData.getValueAsString()}"
                   app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
+                android:id="@+id/guideline_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintGuide_begin="170dp"
@@ -48,28 +48,13 @@
 
         <TextView android:id="@+id/parameter_unit"
                   android:layout_width="0dp" android:layout_height="wrap_content"
-                  app:layout_constraintStart_toEndOf="@id/guideline2"
+                  app:layout_constraintStart_toEndOf="@id/guideline_right"
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintTop_toTopOf="parent"
                   android:text="@{itemData.unit}"
                   app:layout_constraintBottom_toBottomOf="parent"
                   tools:text="kg"
         />
-
-        <!-- <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/button_edit"
-                      app:layout_constraintTop_toTopOf="parent"
-                      app:layout_constraintRight_toLeftOf="@+id/button_delete"
-                      android:src="@drawable/ic_edit_black_24dp"
-                      android:visibility="gone"
-         />
-         <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/button_delete"
-                      app:layout_constraintTop_toTopOf="parent"
-                      app:layout_constraintRight_toRightOf="parent"
-                      android:src="@drawable/ic_delete_forever_black_24dp"
-                      android:visibility="gone"
-         />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

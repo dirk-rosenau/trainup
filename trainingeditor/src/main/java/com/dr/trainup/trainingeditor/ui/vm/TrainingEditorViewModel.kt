@@ -31,4 +31,13 @@ class TrainingEditorViewModel @Inject constructor() : ViewModel() {
 
         Log.d("vm", "clicked")
     }
+
+    // TODO get from db
+    fun getSeatPosition(): String = "4"
+
+    fun getRepeats(): String = "0"
+
+    fun getWeight(): String = "0"
+
+    fun getWeightUnit(): String = "kg"
 }

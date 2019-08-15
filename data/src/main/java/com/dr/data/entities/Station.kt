@@ -9,7 +9,7 @@ data class Station(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
-    val seatSettings: String
+    val seatPosition: String
 // TODO image
 ) {
 

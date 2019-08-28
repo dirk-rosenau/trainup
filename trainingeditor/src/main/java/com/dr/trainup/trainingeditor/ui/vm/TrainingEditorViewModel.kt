@@ -1,35 +1,32 @@
 package com.dr.trainup.trainingeditor.ui.vm
 
-import android.util.Log
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.dr.trainup.trainingeditor.ui.ParameterItem
+import de.trainup.common.ObservableViewModel
 import javax.inject.Inject
 
-class TrainingEditorViewModel @Inject constructor() : ViewModel() {
+class TrainingEditorViewModel @Inject constructor(app: Application) : ObservableViewModel(app) {
     val parameterItems = mutableMapOf<String, ParameterItem>()
 
+    /* @Bindable
+     var name: String = "Hallo"
+         get() {
+             return "Hallo"
+         }
+         set(value) {
+             field = value
+
+         }*/
     private val MAX_PARAMETERS = 5
     // TODO view model must get an single exercise, adds stuff to it
 
     // TODO hide in getter
     val addButtonLiveData = MutableLiveData<Int>()
 
-    fun getParameterItems() = parameterItems.toList().sortedBy {
-        it.first
-    }.map {
-        it.second
-    }
-
-    fun addParameter() {
-
-        val v = addButtonLiveData.value ?: 1
-        if (v <= MAX_PARAMETERS) {
-            addButtonLiveData.value = v + 1
-        }
-        //val param = ExerciseParameter()
-
-        Log.d("vm", "clicked")
+    fun saveStationData() {
+        //    val station = Station(
+        //    0,
     }
 
     // TODO get from db

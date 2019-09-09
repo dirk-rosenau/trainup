@@ -24,7 +24,7 @@ abstract class ObservableViewModel(app: Application) : AndroidViewModel(app), Ob
         mCallBacks.notifyChange(this, 0)
     }
 
-    fun notifyChange(viewId: Int) {
+    fun notifyPropertyChanged(viewId: Int) {
         mCallBacks.notifyChange(this, viewId)
     }
 }

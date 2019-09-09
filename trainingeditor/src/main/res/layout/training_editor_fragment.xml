@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
                 name="vm"
-                type="com.dr.trainup.trainingeditor.ui.vm.TrainingEditorViewModel"/>
+                type="com.dr.trainup.trainingeditor.ui.vm.TrainingEditorViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             tools:context=".ui.TrainingEditorFragment">
 
 
@@ -17,116 +20,121 @@
                 android:id="@+id/name_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:hint="@string/name"
-        >
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
             <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/station_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="blabla"/>
+                    android:text="@={vm.stationName}"
+                    tools:text="blabla" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
                 android:id="@+id/setting_seat_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 android:text="Sitz:"
-                app:layout_constraintTop_toTopOf="@id/setting_seat_value"
+                app:layout_constraintBottom_toBottomOf="@+id/setting_seat_value"
+                app:layout_constraintStart_toStartOf="parent"
 
-                tools:text="Sitzeinstellung:"
-                app:layout_constraintBottom_toBottomOf="@+id/setting_seat_value"/>
+                app:layout_constraintTop_toTopOf="@id/setting_seat_value"
+                tools:text="Sitzeinstellung:" />
 
         <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintGuide_begin="120dp"
                 android:orientation="vertical"
-        />
+                app:layout_constraintGuide_begin="120dp" />
 
-        <EditText android:id="@+id/setting_seat_value"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  app:layout_constraintStart_toEndOf="@id/guideline_left"
-                  app:layout_constraintEnd_toStartOf="@id/guideline_right"
-                  app:layout_constraintTop_toBottomOf="@id/name_layout"
-                  android:text="@{vm.getSeatPosition()}"
-                  tools:text="bla"
-        />
+        <EditText
+                android:id="@+id/setting_seat_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={vm.seatPosition}"
+                app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                app:layout_constraintStart_toEndOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/name_layout"
+                tools:text="bla" />
 
         <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintGuide_begin="170dp"
                 android:orientation="vertical"
-        />
+                app:layout_constraintGuide_begin="170dp" />
         <!---->
         <TextView
                 android:id="@+id/setting_weight_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 android:text="Gewicht:"
-                app:layout_constraintTop_toTopOf="@id/setting_weight_value"
                 app:layout_constraintBottom_toBottomOf="@+id/setting_weight_value"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/setting_weight_value"
 
-                tools:text="Gewicht:"
-        />
+                tools:text="Gewicht:" />
 
-        <EditText android:id="@+id/setting_weight_value"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  app:layout_constraintStart_toEndOf="@id/guideline_left"
-                  app:layout_constraintEnd_toStartOf="@id/setting_weight_unit"
-                  app:layout_constraintTop_toBottomOf="@id/setting_seat_value"
-                  android:text="@{vm.getWeight()}"
-        />
+        <EditText
+                android:id="@+id/setting_weight_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={vm.weight}"
+                app:layout_constraintEnd_toStartOf="@id/setting_weight_unit"
+                app:layout_constraintStart_toEndOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/setting_seat_value" />
 
 
-        <TextView android:id="@+id/setting_weight_unit"
-                  android:layout_width="0dp" android:layout_height="wrap_content"
-                  app:layout_constraintStart_toEndOf="@id/guideline_right"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintTop_toTopOf="@id/setting_weight_value"
-                  app:layout_constraintBottom_toBottomOf="@id/setting_weight_value"
-                  android:text="@{vm.getWeightUnit}"
+        <TextView
+                android:id="@+id/setting_weight_unit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={vm.weightUnit}"
+                app:layout_constraintBottom_toBottomOf="@id/setting_weight_value"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline_right"
+                app:layout_constraintTop_toTopOf="@id/setting_weight_value"
 
-                  tools:text="kg"
-        />
+                tools:text="kg" />
 
         <!---->
         <TextView
                 android:id="@+id/setting_repeats_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 android:text="Wiederholungen:"
-                app:layout_constraintTop_toTopOf="@id/setting_repeats_value"
                 app:layout_constraintBottom_toBottomOf="@+id/setting_repeats_value"
-                tools:text="Wiederholungen:"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/setting_repeats_value"
+                tools:text="Wiederholungen:" />
 
-        <EditText android:id="@+id/setting_repeats_value"
-                  android:layout_width="0dp" android:layout_height="wrap_content"
-                  app:layout_constraintStart_toEndOf="@id/guideline_left"
-                  app:layout_constraintEnd_toStartOf="@id/setting_repeats_unit"
-                  app:layout_constraintTop_toBottomOf="@id/setting_weight_value"
-                  android:text="@{vm.getRepeats()}"
-                  app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="0.384"/>
+        <EditText
+                android:id="@+id/setting_repeats_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={vm.repeats}"
+                app:layout_constraintEnd_toStartOf="@id/setting_repeats_unit"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/setting_weight_value"
+                app:layout_constraintVertical_bias="0.384" />
 
 
-        <TextView android:id="@+id/setting_repeats_unit"
-                  android:layout_width="0dp" android:layout_height="wrap_content"
-                  app:layout_constraintStart_toEndOf="@id/guideline_right"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintTop_toTopOf="@id/setting_repeats_value"
-                  app:layout_constraintBottom_toBottomOf="@id/setting_repeats_value"
-                  android:text="mal"
+        <TextView
+                android:id="@+id/setting_repeats_unit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="mal"
+                app:layout_constraintBottom_toBottomOf="@id/setting_repeats_value"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline_right"
+                app:layout_constraintTop_toTopOf="@id/setting_repeats_value"
 
-                  tools:text="mal"/>
+                tools:text="mal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

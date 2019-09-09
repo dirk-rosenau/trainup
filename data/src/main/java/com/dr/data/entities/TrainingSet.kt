@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class TrainingSet2(
+data class TrainingSet(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val stationId: Long,

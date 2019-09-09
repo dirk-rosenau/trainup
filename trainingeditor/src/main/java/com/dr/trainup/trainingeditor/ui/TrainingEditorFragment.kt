@@ -49,7 +49,10 @@ class TrainingEditorFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
         binding.vm = viewModel
-        viewModel.addButtonLiveData.observe(viewLifecycleOwner, Observer { /*addExerciseParameter()*/ })
+        // TODO wenn es ein was zum anzeigen gibt (klick auf bestehendes),
+        // dann nehme das, ansonsten erzeuge ein neues
+
+        //viewModel.addButtonLiveData.observe(viewLifecycleOwner, Observer { /*addExerciseParameter()*/ })
 
         //   setUpTrainingParameters()
     }

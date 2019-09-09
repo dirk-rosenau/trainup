@@ -1,40 +1,56 @@
 package com.dr.trainup.trainingeditor.ui.vm
 
 import android.app.Application
+import android.util.Log
+import androidx.databinding.Bindable
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
-import com.dr.trainup.trainingeditor.ui.ParameterItem
 import de.trainup.common.ObservableViewModel
 import javax.inject.Inject
 
 class TrainingEditorViewModel @Inject constructor(app: Application) : ObservableViewModel(app) {
-    val parameterItems = mutableMapOf<String, ParameterItem>()
 
-    /* @Bindable
-     var name: String = "Hallo"
-         get() {
-             return "Hallo"
-         }
-         set(value) {
-             field = value
+    @get:Bindable
+    var stationName: String = "Bankdrücken"
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.stationName)
+        }
 
-         }*/
-    private val MAX_PARAMETERS = 5
+    @get:Bindable
+    var seatPosition: String = "4"
+        set(value) {
+            field = value
+//        notifyPropertyChanged(BR.)
+        }
+    @get:Bindable
+    var repeats: String = "0"
+        set(value) {
+            field = value
+//        notifyPropertyChanged(BR.)
+        }
+    @get:Bindable
+    var weight: String = "0"
+        set(value) {
+            field = value
+//        notifyPropertyChanged(BR.)
+        }
+    @get:Bindable
+    var weightUnit: String = "kg"
+        set(value) {
+            field = value
+//        notifyPropertyChanged(BR.)
+        }
+
     // TODO view model must get an single exercise, adds stuff to it
 
     // TODO hide in getter
     val addButtonLiveData = MutableLiveData<Int>()
 
-    fun saveStationData() {
-        //    val station = Station(
-        //    0,
-    }
+//    fun saveStationData() {
+//        val station = Station(
+//            0,
+//
+//    }
 
-    // TODO get from db
-    fun getSeatPosition(): String = "4"
-
-    fun getRepeats(): String = "0"
-
-    fun getWeight(): String = "0"
-
-    fun getWeightUnit(): String = "kg"
 }

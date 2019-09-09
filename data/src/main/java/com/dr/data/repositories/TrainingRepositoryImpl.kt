@@ -5,8 +5,10 @@ import com.dr.data.entities.Station
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class TrainingRepositoryImpl @Inject constructor(private val database: AppDatabase) : TrainingRepository {
+class TrainingRepositoryImpl @Inject constructor(private val database: AppDatabase) :
+    TrainingRepository {
 
+    // TODO use db
     override fun getStations(): Observable<List<Station>> {
         val stationList = listOf(
             Station(0, "Bankdrücken", "4"),

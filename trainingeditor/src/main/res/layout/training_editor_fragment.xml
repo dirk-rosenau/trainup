@@ -37,7 +37,7 @@
                 android:id="@+id/setting_seat_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Sitz:"
+                android:text="@string/seat"
                 app:layout_constraintBottom_toBottomOf="@+id/setting_seat_value"
                 app:layout_constraintStart_toStartOf="parent"
 
@@ -72,7 +72,7 @@
                 android:id="@+id/setting_weight_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Gewicht:"
+                android:text="@string/weight"
                 app:layout_constraintBottom_toBottomOf="@+id/setting_weight_value"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/setting_weight_value"
@@ -106,7 +106,7 @@
                 android:id="@+id/setting_repeats_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Wiederholungen:"
+                android:text="@string/repeats"
                 app:layout_constraintBottom_toBottomOf="@+id/setting_repeats_value"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/setting_repeats_value"
@@ -128,13 +128,23 @@
                 android:id="@+id/setting_repeats_unit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="mal"
+                android:text="@string/times"
                 app:layout_constraintBottom_toBottomOf="@id/setting_repeats_value"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline_right"
                 app:layout_constraintTop_toTopOf="@id/setting_repeats_value"
 
                 tools:text="mal" />
+
+        <Button
+                android:id="@+id/button_ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> vm.saveStationData()}"
+                android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

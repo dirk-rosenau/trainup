@@ -2,4 +2,9 @@
 <resources>
     <string name="name">Name</string>
     <string name="add_parameter">Add parameter</string>
+    <string name="save">Save</string>
+    <string name="repeats">Repeats:</string>
+    <string name="times">times</string>
+    <string name="weight">Weight</string>
+    <string name="seat">Seat</string>
 </resources>

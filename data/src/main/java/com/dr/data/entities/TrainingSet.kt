@@ -20,5 +20,6 @@ data class TrainingSet(
     val stationId: Long,
     val date: Long,
     val weight: Int,
+    val weightUnit: String,
     val repeats: Int
 )

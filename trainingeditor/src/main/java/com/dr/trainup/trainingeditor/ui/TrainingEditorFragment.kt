@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.dr.trainup.trainingeditor.R
@@ -47,7 +46,8 @@ class TrainingEditorFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
         binding.vm = viewModel
         // TODO wenn es ein was zum anzeigen gibt (klick auf bestehendes),
         // dann nehme das, ansonsten erzeuge ein neues

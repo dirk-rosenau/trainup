@@ -3,14 +3,17 @@ package com.dr.data
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.dr.data.dao.ExeciseDao
-import com.dr.data.entities.Exercise
+import com.dr.data.dao.StationDao
+import com.dr.data.dao.TrainingsSetDao
+import com.dr.data.entities.Station
+import com.dr.data.entities.TrainingSet
 
-@Database(entities = [Exercise::class], version = 1)
-//@Database(entities = [TrainingDay::class, TrainingSet::class, Exercise::class, ExerciseParameter::class], version = 1)
+@Database(entities = [Station::class, TrainingSet::class], version = 1)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun exerciseDao(): ExeciseDao
+    abstract fun stationDao(): StationDao
+
+    abstract fun trainingSetDao(): TrainingsSetDao
 
 }

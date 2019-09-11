@@ -2,4 +2,9 @@
 <resources>
     <string name="add_parameter">Parameter hinzufügen</string>
     <string name="name">Name</string>
+    <string name="save">Speichern</string>
+    <string name="repeats">Wiederholungen:</string>
+    <string name="times">mal</string>
+    <string name="weight">Gewicht</string>
+    <string name="seat">Sitz</string>
 </resources>

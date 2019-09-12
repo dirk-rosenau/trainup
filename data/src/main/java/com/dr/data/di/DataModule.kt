@@ -1,5 +1,6 @@
 package com.dr.data.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.dr.data.AppDatabase
@@ -21,7 +22,7 @@ object DataModule {
     @JvmStatic
     @Provides
     @Singleton
-    fun provideDatabase(context: Context): AppDatabase = Room.databaseBuilder(
+    fun provideDatabase(context: Application): AppDatabase = Room.databaseBuilder(
         context,
         AppDatabase::class.java, "trainup-database"
     ).build()

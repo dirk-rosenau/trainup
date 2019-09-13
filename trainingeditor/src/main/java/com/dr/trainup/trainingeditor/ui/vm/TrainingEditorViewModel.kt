@@ -9,6 +9,7 @@ import com.dr.data.entities.Station
 import com.dr.data.entities.TrainingSet
 import com.dr.data.repositories.TrainingRepository
 import de.trainup.common.ObservableViewModel
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class TrainingEditorViewModel @Inject constructor(
@@ -48,6 +49,8 @@ class TrainingEditorViewModel @Inject constructor(
             notifyPropertyChanged(BR.weightUnit)
         }
 
+    private val disposables = CompositeDisposable()
+
     // TODO view model must get an single exercise, adds stuff to it
 
     // TODO hide in getter
@@ -59,13 +62,18 @@ class TrainingEditorViewModel @Inject constructor(
             stationName,
             seatPosition
         )
-        trainingRepository.saveStation(station).map { stationId ->
+        val dispo = trainingRepository.saveStation(station).flatMap { stationId ->
             val set = TrainingSet(
                 0, stationId, System.currentTimeMillis(), weight.toInt(), weightUnit, 0
             )
             trainingRepository.saveSet(set)
         }.subscribe({}, { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
-        // Attempt to invoke interface method 'androidx.sqlite.db.SupportSQLiteDatabase androidx.sqlite.db.SupportSQLiteOpenHelper.getWritableDatabase()' on a null object reference
+        disposables.add(dispo)
+
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
+    }
 }

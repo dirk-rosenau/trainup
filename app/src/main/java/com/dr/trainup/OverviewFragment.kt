@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,7 +26,6 @@ class OverviewFragment : Fragment() {
 
     private lateinit var viewModel: OverviewFragmentVM
 
-
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -36,9 +35,9 @@ class OverviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_overview, container, false)
-        return binding.root
+        val view = inflater.inflate(R.layout.fragment_overview, container, false)
+        binding = FragmentOverviewBinding.bind(view)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -57,8 +56,21 @@ class OverviewFragment : Fragment() {
 
     }
 
+    private fun onLongClickItem(stationId: Long) {
+//        val action = OverviewFragmentDirections.actionOverviewFragmentToTrainingEditor(stationId)
+//        findNavController(
+//            activity as Activity,
+//            R.id.nav_fragment
+//        ).navigate(action)
+    }
+
+    private fun onClickItem(stationId: Long) {
+        Toast.makeText(context, "Click: $stationId", Toast.LENGTH_LONG).show()
+    }
+
     private fun handleExercisesLoaded(exerciseList: List<Station>) {
-        binding.exercises.adapter = ExerciseOverviewAdapter(exerciseList)
+        binding.exercises.adapter =
+            ExerciseOverviewAdapter(exerciseList, ::onClickItem, ::onLongClickItem)
 
     }
 

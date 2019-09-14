@@ -7,13 +7,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dr.data.entities.Station
 import com.dr.trainup.databinding.ItemExcerciseBinding
 
-class ExerciseOverviewAdapter(private val exercises: List<Station>) :
+class ExerciseOverviewAdapter(
+    private val exercises: List<Station>,
+    private val listener: (Long) -> Unit,
+    private val longClockListener: (Long) -> Unit
+) :
     RecyclerView.Adapter<ExerciseOverviewAdapter.ExerciseViewHolder>() {
     override fun getItemCount(): Int = exercises.size
 
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-        holder.binding.viewModel = ExerciseOverviewItemViewModel(exercises[position])
+        holder.binding.viewModel = ExerciseOverviewItemViewModel(exercises[position], listener)
+        holder.binding.container.setOnLongClickListener {
+            longClockListener.invoke(exercises[position].id)
+            true
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
@@ -24,6 +32,6 @@ class ExerciseOverviewAdapter(private val exercises: List<Station>) :
 
 
     class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = ItemExcerciseBinding.bind(itemView)
+        val binding: ItemExcerciseBinding = ItemExcerciseBinding.bind(itemView)
     }
 }

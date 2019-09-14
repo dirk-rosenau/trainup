@@ -28,6 +28,7 @@ class TrainingEditorFragment : Fragment() {
 
     private lateinit var binding: TrainingEditorFragmentBinding
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

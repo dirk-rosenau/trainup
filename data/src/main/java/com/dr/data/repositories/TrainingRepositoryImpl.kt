@@ -12,14 +12,9 @@ class TrainingRepositoryImpl @Inject constructor(private val database: AppDataba
     TrainingRepository {
 
     // TODO use db
-    override fun getStations(): Observable<List<Station>> {
-        val stationList = listOf(
-            Station(0, "Bankdrücken", "4"),
-            Station(1, "Liegestütze", "-"),
-            Station(2, "Butterfly", "1")
-        )
-        return Observable.just(stationList)
-    }
+    override fun getStations(): Observable<List<Station>> =
+        database.stationDao().getStations()
+
 
     override fun saveStation(station: Station): Single<Long> {
         return Single.fromCallable {

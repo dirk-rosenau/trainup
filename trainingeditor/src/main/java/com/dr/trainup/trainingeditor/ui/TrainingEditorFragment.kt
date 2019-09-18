@@ -49,6 +49,10 @@ class TrainingEditorFragment : Fragment() {
 
         viewModel =
             ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
+
+        val id = savedInstanceState?.getLong("id")
+
+        id?.let { viewModel.init(id) }
         binding.vm = viewModel
         // TODO wenn es ein was zum anzeigen gibt (klick auf bestehendes),
         // dann nehme das, ansonsten erzeuge ein neues

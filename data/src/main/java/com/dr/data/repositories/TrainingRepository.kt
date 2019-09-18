@@ -9,6 +9,8 @@ interface TrainingRepository {
 
     fun getStations(): Observable<List<Station>>
 
+    fun getStation(id: Long): Observable<Station>
+
     fun saveStation(station: Station): Single<Long>
     fun saveSet(set: TrainingSet): Single<Long>
 }

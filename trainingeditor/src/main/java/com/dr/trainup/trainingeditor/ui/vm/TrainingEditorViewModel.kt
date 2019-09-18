@@ -56,6 +56,10 @@ class TrainingEditorViewModel @Inject constructor(
     // TODO hide in getter
     val addButtonLiveData = MutableLiveData<Int>()
 
+    fun init(stationId: Long) {
+        trainingRepository.getStation(stationId);
+    }
+
     fun saveStationData() {
         val station = Station(
             0,

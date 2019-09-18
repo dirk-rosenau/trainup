@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dr.data.entities.Station
 import com.dr.trainup.databinding.FragmentOverviewBinding
@@ -62,6 +63,11 @@ class OverviewFragment : Fragment() {
 //            activity as Activity,
 //            R.id.nav_fragment
 //        ).navigate(action)
+
+        val bundle = Bundle()
+        bundle.putLong("id", stationId)
+        findNavController().navigate(R.id.trainingEditActivity, bundle);
+
     }
 
     private fun onClickItem(stationId: Long) {

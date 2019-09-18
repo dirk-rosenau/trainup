@@ -10,6 +10,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
+
 class TrainingEditActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject

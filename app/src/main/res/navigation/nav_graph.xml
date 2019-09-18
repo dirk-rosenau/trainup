@@ -14,7 +14,12 @@
     <fragment android:id="@+id/exerciseFragment" android:name="com.dr.trainup.ExerciseFragment"
               android:label="fragment_exercise" tools:layout="@layout/fragment_exercise"/>
     <fragment android:id="@+id/overviewFragment" android:name="com.dr.trainup.OverviewFragment"
-              android:label="fragment_overview" tools:layout="@layout/fragment_overview"/>
+            android:label="fragment_overview"
+            tools:layout="@layout/fragment_overview">
+        <action
+                android:id="@+id/action_overviewFragment_to_trainingEditActivity"
+                app:destination="@id/trainingEditActivity" />
+    </fragment>
     <activity
             android:id="@+id/trainingEditActivity"
             android:name="com.dr.trainup.trainingeditor.ui.TrainingEditActivity"/>

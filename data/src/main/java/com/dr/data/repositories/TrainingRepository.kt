@@ -13,4 +13,6 @@ interface TrainingRepository {
 
     fun saveStation(station: Station): Single<Long>
     fun saveSet(set: TrainingSet): Single<Long>
+
+    fun getInitialTrainingSetForStation(id: Long): Observable<TrainingSet>
 }

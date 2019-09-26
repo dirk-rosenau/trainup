@@ -54,6 +54,7 @@ class TrainingEditorFragment : Fragment() {
 
         id?.let { viewModel.init(id) }
         binding.vm = viewModel
+
         // TODO wenn es ein was zum anzeigen gibt (klick auf bestehendes),
         // dann nehme das, ansonsten erzeuge ein neues
 

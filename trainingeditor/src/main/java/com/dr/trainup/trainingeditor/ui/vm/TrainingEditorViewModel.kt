@@ -17,33 +17,53 @@ class TrainingEditorViewModel @Inject constructor(
     val trainingRepository: TrainingRepository
 ) : ObservableViewModel(app) {
 
-    @get:Bindable
-    var stationName: String = "Bankdrücken"
+    private var station: Station? = null
+    private var trainingSet: TrainingSet? = null
+
+    var stationName: String = ""
+        @Bindable
+        get() {
+            return station?.name ?: field
+        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.stationName)
         }
 
-    @get:Bindable
-    var seatPosition: String = "4"
+    var seatPosition: String = ""
+        @Bindable
+        get() {
+            return station?.seatPosition ?: ""
+        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.seatPosition)
         }
-    @get:Bindable
-    var repeats: String = "0"
+
+    var repeats: String = ""
+        @Bindable
+        get() {
+            return trainingSet?.repeats?.toString() ?: ""
+        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.repeats)
         }
-    @get:Bindable
-    var weight: String = "0"
+
+    var weight: String = ""
+        @Bindable
+        get() {
+            return trainingSet?.weight?.toString() ?: ""
+        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.weight)
         }
-    @get:Bindable
-    var weightUnit: String = "kg"
+    var weightUnit: String = ""
+        @Bindable
+        get() {
+            return trainingSet?.weightUnit ?: ""
+        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.weightUnit)
@@ -57,7 +77,11 @@ class TrainingEditorViewModel @Inject constructor(
     val addButtonLiveData = MutableLiveData<Int>()
 
     fun init(stationId: Long) {
-        trainingRepository.getStation(stationId);
+        val disp = trainingRepository.getStation(stationId).subscribe { station = it }
+        val disp2 = trainingRepository.getInitialTrainingSetForStation(stationId)
+            .subscribe { trainingSet = it }
+        disposables.add(disp)
+        disposables.add(disp2)
     }
 
     fun saveStationData() {

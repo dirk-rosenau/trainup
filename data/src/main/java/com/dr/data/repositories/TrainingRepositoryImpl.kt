@@ -10,6 +10,10 @@ import javax.inject.Inject
 
 class TrainingRepositoryImpl @Inject constructor(private val database: AppDatabase) :
     TrainingRepository {
+    override fun getInitialTrainingSetForStation(id: Long): Observable<TrainingSet> =
+        Observable.just(database.trainingSetDao().getInitialTrainingSet(id))
+
+
     override fun getStation(id: Long): Observable<Station> =
         database.stationDao().getStation(id)
 

@@ -1,4 +1,4 @@
-package com.dr.trainup
+package com.dr.trainup.ui.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

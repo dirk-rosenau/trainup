@@ -1,10 +1,11 @@
-package com.dr.trainup
+package com.dr.trainup.ui.fragments
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.dr.trainup.R
 
 /**
  * A placeholder fragment containing a simple view.

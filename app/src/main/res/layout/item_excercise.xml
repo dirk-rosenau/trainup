@@ -6,7 +6,7 @@
 
         <variable
                 name="viewModel"
-                type="com.dr.trainup.ExerciseOverviewItemViewModel" />
+                type="com.dr.trainup.ui.vm.ExerciseOverviewItemVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"

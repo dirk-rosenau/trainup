@@ -1,4 +1,4 @@
-package com.dr.trainup
+package com.dr.trainup.ui.fragments
 
 
 import android.content.Context
@@ -14,7 +14,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dr.data.entities.Station
+import com.dr.trainup.ExerciseOverviewAdapter
+import com.dr.trainup.R
 import com.dr.trainup.databinding.FragmentOverviewBinding
+import com.dr.trainup.ui.vm.OverviewFragmentVM
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 

@@ -4,16 +4,22 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
             app:startDestination="@id/mainActivityFragment">
 
-    <fragment android:id="@+id/mainActivityFragment" android:name="com.dr.trainup.MainActivityFragment"
+    <fragment
+            android:id="@+id/mainActivityFragment"
+            android:name="com.dr.trainup.ui.fragments.MainActivityFragment"
               android:label="fragment_main" tools:layout="@layout/fragment_main">
         <action android:id="@+id/action_mainActivityFragment_to_exerciseFragment"
                 app:destination="@id/exerciseFragment"/>
         <action android:id="@+id/action_mainActivityFragment_to_overviewFragment"
                 app:destination="@id/overviewFragment"/>
     </fragment>
-    <fragment android:id="@+id/exerciseFragment" android:name="com.dr.trainup.ExerciseFragment"
+    <fragment
+            android:id="@+id/exerciseFragment"
+            android:name="com.dr.trainup.ui.fragments.ExerciseFragment"
               android:label="fragment_exercise" tools:layout="@layout/fragment_exercise"/>
-    <fragment android:id="@+id/overviewFragment" android:name="com.dr.trainup.OverviewFragment"
+    <fragment
+            android:id="@+id/overviewFragment"
+            android:name="com.dr.trainup.ui.fragments.OverviewFragment"
             android:label="fragment_overview"
             tools:layout="@layout/fragment_overview">
         <action

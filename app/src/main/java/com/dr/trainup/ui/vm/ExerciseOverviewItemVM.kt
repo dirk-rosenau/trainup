@@ -1,8 +1,8 @@
-package com.dr.trainup
+package com.dr.trainup.ui.vm
 
 import com.dr.data.entities.Station
 
-class ExerciseOverviewItemViewModel(
+class ExerciseOverviewItemVM(
     private val station: Station,
     private val listener: (Long) -> Unit
 ) {

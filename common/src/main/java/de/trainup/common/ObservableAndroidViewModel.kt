@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.AndroidViewModel
-import java.util.*
 
 
 abstract class ObservableViewModel(app: Application) : AndroidViewModel(app), Observable {
@@ -21,7 +20,7 @@ abstract class ObservableViewModel(app: Application) : AndroidViewModel(app), Ob
     }
 
     fun notifyChange() {
-        mCallBacks.notifyChange(this, 0)
+        mCallBacks.notifyChange(this, BR._all)
     }
 
     fun notifyPropertyChanged(viewId: Int) {

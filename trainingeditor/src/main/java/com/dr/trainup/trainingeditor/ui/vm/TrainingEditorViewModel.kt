@@ -20,50 +20,36 @@ class TrainingEditorViewModel @Inject constructor(
     private var station: Station? = null
     private var trainingSet: TrainingSet? = null
 
-    var stationName: String = ""
-        @Bindable
-        get() {
-            return station?.name ?: field
-        }
+    @get:Bindable
+    var stationName = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.stationName)
         }
 
+    @get:Bindable
     var seatPosition: String = ""
-        @Bindable
-        get() {
-            return station?.seatPosition ?: ""
-        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.seatPosition)
         }
 
+    @get:Bindable
     var repeats: String = ""
-        @Bindable
-        get() {
-            return trainingSet?.repeats?.toString() ?: ""
-        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.repeats)
         }
 
+    @get:Bindable
     var weight: String = ""
-        @Bindable
-        get() {
-            return trainingSet?.weight?.toString() ?: ""
-        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.weight)
         }
-    var weightUnit: String = ""
-        @Bindable
-        get() {
-            return trainingSet?.weightUnit ?: ""
-        }
+
+    @get:Bindable
+    var weightUnit: String = "kg"
         set(value) {
             field = value
             notifyPropertyChanged(BR.weightUnit)
@@ -77,27 +63,49 @@ class TrainingEditorViewModel @Inject constructor(
     val addButtonLiveData = MutableLiveData<Int>()
 
     fun init(stationId: Long) {
-        val disp = trainingRepository.getStation(stationId).subscribe { station = it }
-        val disp2 = trainingRepository.getInitialTrainingSetForStation(stationId)
-            .subscribe { trainingSet = it }
+        val disp = trainingRepository.getStation(stationId)
+            .subscribe { onStationLoaded(it) }
+        val disp2 =
+            trainingRepository.getInitialTrainingSetForStation(stationId)
+                .subscribe { onTrainingSetLoaded(it) }
         disposables.add(disp)
         disposables.add(disp2)
     }
 
+    private fun onStationLoaded(station: Station) {
+        this.station = station
+        stationName = station.name
+        seatPosition = station.seatPosition
+    }
+
+    private fun onTrainingSetLoaded(trainingSet: TrainingSet) {
+        this.trainingSet = trainingSet
+        repeats = trainingSet.repeats.toString()
+        weight = trainingSet.weight.toString()
+        weightUnit = trainingSet.weightUnit
+    }
+
     fun saveStationData() {
-        val station = Station(
-            0,
-            stationName,
-            seatPosition
-        )
+
+        val stationID = station?.id ?: 0
+        val station = // muss id ersetzt werden?
+            Station(
+                stationID,
+                stationName,
+                seatPosition
+            )
+
+        val trainingSetId = trainingSet?.id ?: 0
+        val date = trainingSet?.date ?: System.currentTimeMillis()
+
+        val reps = repeats.toInt() // im diassemble anschauen warum das sonst nicht läuft
         val dispo = trainingRepository.saveStation(station).flatMap { stationId ->
             val set = TrainingSet(
-                0, stationId, System.currentTimeMillis(), weight.toInt(), weightUnit, 0
+                trainingSetId, stationId, date, weight.toInt(), weightUnit, reps
             )
             trainingRepository.saveSet(set)
         }.subscribe({}, { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
         disposables.add(dispo)
-
     }
 
     override fun onCleared() {

@@ -22,7 +22,12 @@ class TrainingEditActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_training_edit)
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(android.R.id.content, TrainingEditorFragment.newInstance(), "training_fragment")
+        val id = intent.extras?.getLong("id", 0)
+        transaction.add(
+            android.R.id.content,
+            TrainingEditorFragment.newInstance(id ?: 0),
+            "training_fragment"
+        )
         transaction.commitNow()
     }
 

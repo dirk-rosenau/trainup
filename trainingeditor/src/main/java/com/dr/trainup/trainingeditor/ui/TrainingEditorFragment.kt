@@ -12,13 +12,14 @@ import com.dr.trainup.trainingeditor.R
 import com.dr.trainup.trainingeditor.databinding.TrainingEditorFragmentBinding
 import com.dr.trainup.trainingeditor.ui.vm.TrainingEditorViewModel
 import dagger.android.support.AndroidSupportInjection
+import de.trainup.common.extensions.withArgs
 import javax.inject.Inject
 
 
 class TrainingEditorFragment : Fragment() {
 
     companion object {
-        fun newInstance() = TrainingEditorFragment()
+        fun newInstance(stationID: Long) = TrainingEditorFragment().withArgs("id" to stationID)
     }
 
     @Inject
@@ -50,7 +51,7 @@ class TrainingEditorFragment : Fragment() {
         viewModel =
             ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
 
-        val id = savedInstanceState?.getLong("id")
+        val id = arguments?.getLong("id")
 
         id?.let { viewModel.init(id) }
         binding.vm = viewModel

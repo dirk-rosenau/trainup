@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.dr.data.entities.TrainingSet
+import io.reactivex.Observable
 
 @Dao
 interface TrainingsSetDao {
@@ -11,7 +12,7 @@ interface TrainingsSetDao {
 //    fun getLastDayExercise(stationId: Long, dayStart: Long, dayEnd: Long): Exercise
 
     @Query("SELECT * FROM training_sets WHERE stationId = :stationId ORDER BY date ASC LIMIT 1")
-    fun getInitialTrainingSet(stationId: Long): TrainingSet
+    fun getInitialTrainingSet(stationId: Long): Observable<TrainingSet>
 
     @Insert
     fun insertTrainingSet(set: TrainingSet): Long

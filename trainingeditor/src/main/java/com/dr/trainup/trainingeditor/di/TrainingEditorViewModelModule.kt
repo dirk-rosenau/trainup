@@ -11,6 +11,6 @@ abstract class TrainingEditorViewModelModule {
 
     @Binds
     @IntoMap
-    @de.trainup.common.di.ViewModelKey(TrainingEditorViewModel::class)
+    @com.trainup.common.di.ViewModelKey(TrainingEditorViewModel::class)
     abstract fun trainingEditorFragmentViewModel(viewModel: TrainingEditorViewModel): ViewModel
 }

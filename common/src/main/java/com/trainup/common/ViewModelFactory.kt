@@ -1,4 +1,4 @@
-package de.trainup.common
+package com.trainup.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

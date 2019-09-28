@@ -1,4 +1,4 @@
-package de.trainup.common.ui
+package com.trainup.common.ui
 
 
 import android.view.ActionMode

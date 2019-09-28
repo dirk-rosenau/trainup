@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.dr.data.entities.Station
 import com.dr.data.entities.TrainingSet
 import com.dr.data.repositories.TrainingRepository
-import de.trainup.common.ObservableViewModel
+import com.trainup.common.ObservableViewModel
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package de.trainup.common;
+package com.trainup.common;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;

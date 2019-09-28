@@ -12,7 +12,7 @@ import com.dr.trainup.trainingeditor.R
 import com.dr.trainup.trainingeditor.databinding.TrainingEditorFragmentBinding
 import com.dr.trainup.trainingeditor.ui.vm.TrainingEditorViewModel
 import dagger.android.support.AndroidSupportInjection
-import de.trainup.common.extensions.withArgs
+import com.trainup.common.extensions.withArgs
 import javax.inject.Inject
 
 

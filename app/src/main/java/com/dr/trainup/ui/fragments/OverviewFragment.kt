@@ -19,7 +19,7 @@ import com.dr.trainup.R
 import com.dr.trainup.databinding.FragmentOverviewBinding
 import com.dr.trainup.ui.vm.OverviewFragmentVM
 import dagger.android.support.AndroidSupportInjection
-import de.trainup.common.ui.PrimaryActionModeCallback
+import com.trainup.common.ui.PrimaryActionModeCallback
 import javax.inject.Inject
 
 class OverviewFragment : Fragment() {

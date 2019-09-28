@@ -1,11 +1,10 @@
-package de.trainup.common.extensions
+package com.trainup.common.extensions
 
 
 import android.content.Context
 import android.os.Bundle
 import android.os.IBinder
 import android.os.Parcelable
-import android.util.SparseArray
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity

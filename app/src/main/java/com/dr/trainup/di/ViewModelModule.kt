@@ -11,6 +11,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @de.trainup.common.di.ViewModelKey(OverviewFragmentVM::class)
+    @com.trainup.common.di.ViewModelKey(OverviewFragmentVM::class)
     abstract fun overviewFragmentViewModel(viewModel: OverviewFragmentVM): ViewModel
 }

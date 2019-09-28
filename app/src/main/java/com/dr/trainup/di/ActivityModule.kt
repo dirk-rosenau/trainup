@@ -5,7 +5,7 @@ import com.dr.trainup.trainingeditor.di.TrainingEditorActivityModule
 import com.dr.trainup.trainingeditor.ui.TrainingEditActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import de.trainup.common.di.ActivityScope
+import com.trainup.common.di.ActivityScope
 
 @Module
 abstract class ActivityModule {

@@ -1,4 +1,4 @@
-package de.trainup.common.di
+package com.trainup.common.di
 
 import javax.inject.Scope
 

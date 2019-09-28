@@ -11,21 +11,26 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class OverviewFragmentVM @Inject constructor(private val trainingRepository: TrainingRepository) : ViewModel() {
+class OverviewFragmentVM @Inject constructor(private val trainingRepository: TrainingRepository) :
+    ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val stationData = MutableLiveData<List<Station>>()
-    fun getStationData(): LiveData<List<Station>> = stationData
+    private var _actionModeEnabled = MutableLiveData<Boolean>(false)
+    val actionModeEnabled: LiveData<Boolean> = _actionModeEnabled
+
+    private val _stationData = MutableLiveData<List<Station>>()
+    val stationData: LiveData<List<Station>> = _stationData
 
     fun loadExercises() {
         trainingRepository.getStations().observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onNext = { processData(it) },
+            .subscribeBy(
+                onNext = { onStationDataLoaded(it) },
                 onError = { processError(it) }).addTo(compositeDisposable)
     }
 
-    private fun processData(it: List<Station>?) {
-        stationData.value = it
+    private fun onStationDataLoaded(it: List<Station>?) {
+        _stationData.value = it
     }
 
     private fun processError(it: Throwable) {

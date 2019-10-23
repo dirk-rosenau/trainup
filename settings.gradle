@@ -1,1 +1,1 @@
-include ':app', ':data', ':trainingeditor', ':common'
+include ':app', ':data', ':trainingeditor', ':common', ':trainingview'

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+                name="vm"
+                type="com.dr.trainup.trainingview.vm.TrainingViewVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_spacing_80"
+                android:text="@{vm.trainingName}"
                 android:textAppearance="@style/BigText"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -40,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_spacing_40"
+                android:text="@{vm.weight"
                 android:textAppearance="@style/MediumText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_spacing_40"
+                android:text="@{vm.repeats}"
                 android:textAppearance="@style/MediumText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

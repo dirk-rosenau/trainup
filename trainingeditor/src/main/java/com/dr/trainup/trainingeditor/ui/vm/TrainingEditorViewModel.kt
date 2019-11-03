@@ -92,19 +92,25 @@ class TrainingEditorViewModel @Inject constructor(
             Station(
                 stationID,
                 stationName,
+                weight.toInt(),
+                weightUnit,
+                repeats.toInt(),
                 seatPosition
             )
 
         val trainingSetId = trainingSet?.id ?: 0
         val date = trainingSet?.date ?: System.currentTimeMillis()
 
-        val reps = repeats.toInt() // im diassemble anschauen warum das sonst nicht läuft
-        val dispo = trainingRepository.saveStation(station).flatMap { stationId ->
-            val set = TrainingSet(
-                trainingSetId, stationId, date, weight.toInt(), weightUnit, reps
-            )
-            trainingRepository.saveSet(set)
-        }.subscribe({}, { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
+        val dispo = trainingRepository.saveStation(station)
+            .subscribe({}, { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
+
+
+//        val dispo = trainingRepository.saveStation(station).flatMap { stationId ->
+//            val set = TrainingSet(
+//                trainingSetId, stationId, date, weight.toInt(), weightUnit, reps
+//            )
+//            trainingRepository.saveSet(set)
+//        }.subscribe({}, { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
         disposables.add(dispo)
     }
 

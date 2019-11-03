@@ -1,4 +1,4 @@
-package com.dr.trainingview
+package com.dr.trainup.trainingview
 
 import org.junit.Test
 

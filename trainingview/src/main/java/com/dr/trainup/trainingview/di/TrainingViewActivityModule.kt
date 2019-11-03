@@ -1,4 +1,4 @@
-package com.dr.trainingview.di
+package com.dr.trainup.trainingview.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

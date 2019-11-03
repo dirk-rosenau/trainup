@@ -14,6 +14,10 @@ interface TrainingsSetDao {
     @Query("SELECT * FROM training_sets WHERE stationId = :stationId ORDER BY date ASC LIMIT 1")
     fun getInitialTrainingSet(stationId: Long): Observable<TrainingSet>
 
+    @Query("SELECT * FROM training_sets WHERE stationId = :stationId ORDER BY date DESC LIMIT 1")
+    fun getLastTrainingSet(stationId: Long): Observable<TrainingSet>
+
+
     @Insert
     fun insertTrainingSet(set: TrainingSet): Long
 }

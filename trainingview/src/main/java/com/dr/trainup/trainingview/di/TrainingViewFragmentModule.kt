@@ -1,6 +1,6 @@
-package com.dr.trainingview.di
+package com.dr.trainup.trainingview.di
 
-import com.dr.trainingview.ui.TrainingViewFragment
+import com.dr.trainup.trainingview.ui.TrainingViewFragment
 import com.trainup.common.di.FragmentScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

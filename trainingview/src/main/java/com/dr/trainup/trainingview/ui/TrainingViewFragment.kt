@@ -1,12 +1,17 @@
-package com.dr.trainingview.ui
+package com.dr.trainup.trainingview.ui
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dr.trainingview.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.dr.trainup.trainingview.R
+import com.dr.trainup.trainingview.databinding.FragementTrainingViewBinding
+import com.dr.trainup.trainingview.vm.TrainingViewVM
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,12 +28,20 @@ class TrainingViewFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var binding: FragementTrainingViewBinding
+
+    private lateinit var viewModel: TrainingViewVM
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -36,7 +49,14 @@ class TrainingViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragement_training_view, container, false)
+
+        val view = inflater.inflate(R.layout.fragement_training_view, container, false)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory)[TrainingViewVM::class.java]
+
+        binding = FragementTrainingViewBinding.bind(view)
+
+        return view
     }
 
 

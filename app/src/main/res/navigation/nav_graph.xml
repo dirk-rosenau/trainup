@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
-            app:startDestination="@id/mainActivityFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/mainActivityFragment">
 
     <fragment
             android:id="@+id/mainActivityFragment"
             android:name="com.dr.trainup.ui.fragments.MainActivityFragment"
-              android:label="fragment_main" tools:layout="@layout/fragment_main">
-        <action android:id="@+id/action_mainActivityFragment_to_exerciseFragment"
-                app:destination="@id/exerciseFragment"/>
-        <action android:id="@+id/action_mainActivityFragment_to_overviewFragment"
-                app:destination="@id/overviewFragment"/>
+            android:label="fragment_main"
+            tools:layout="@layout/fragment_main">
+        <action
+                android:id="@+id/action_mainActivityFragment_to_exerciseFragment"
+                app:destination="@id/exerciseFragment" />
+        <action
+                android:id="@+id/action_mainActivityFragment_to_overviewFragment"
+                app:destination="@id/overviewFragment" />
     </fragment>
     <fragment
             android:id="@+id/exerciseFragment"
-            android:name="com.dr.trainup.ui.fragments.ExerciseFragment"
-              android:label="fragment_exercise" tools:layout="@layout/fragment_exercise"/>
+            android:name="com.dr.trainup.trainingview.ui.TrainingViewFragment"
+            android:label="fragment_exercise"
+            tools:layout="@layout/fragment_exercise" />
     <fragment
             android:id="@+id/overviewFragment"
             android:name="com.dr.trainup.ui.fragments.OverviewFragment"
@@ -28,5 +33,5 @@
     </fragment>
     <activity
             android:id="@+id/trainingEditActivity"
-            android:name="com.dr.trainup.trainingeditor.ui.TrainingEditActivity"/>
+            android:name="com.dr.trainup.trainingeditor.ui.TrainingEditActivity" />
 </navigation>

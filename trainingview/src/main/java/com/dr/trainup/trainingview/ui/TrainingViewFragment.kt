@@ -1,6 +1,7 @@
 package com.dr.trainup.trainingview.ui
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +12,12 @@ import androidx.lifecycle.ViewModelProviders
 import com.dr.trainup.trainingview.R
 import com.dr.trainup.trainingview.databinding.FragementTrainingViewBinding
 import com.dr.trainup.trainingview.vm.TrainingViewVM
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_STATION_ID = "station_id"
 
 /**
  * A simple [Fragment] subclass.
@@ -24,9 +25,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class TrainingViewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var stationId: Long? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -38,10 +37,14 @@ class TrainingViewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            stationId = it.getLong(ARG_STATION_ID)
         }
 
+    }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(
@@ -55,6 +58,11 @@ class TrainingViewFragment : Fragment() {
             ViewModelProviders.of(this, viewModelFactory)[TrainingViewVM::class.java]
 
         binding = FragementTrainingViewBinding.bind(view)
+        binding.vm = viewModel
+        // TODO start-station auswählen
+        viewModel.init(1)
+
+
 
         return view
     }
@@ -65,8 +73,7 @@ class TrainingViewFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             TrainingViewFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(ARG_STATION_ID, param1)
                 }
             }
     }

@@ -5,12 +5,21 @@ import com.dr.data.entities.Station
 import com.dr.data.entities.TrainingSet
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class TrainingRepositoryImpl @Inject constructor(private val database: AppDatabase) :
     TrainingRepository {
+    override fun getTrainingSetsForActualTraining(stationId: Long): Observable<TrainingSet> {
+        val timeToSubstract = 5 * 60 * 60
+        val pastTime = System.currentTimeMillis() - timeToSubstract
+
+        return database.trainingSetDao().getTrainingSetsForLastHours(stationId, pastTime)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun getInitialTrainingSetForStation(id: Long): Observable<TrainingSet> =
         database.trainingSetDao().getInitialTrainingSet(id).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

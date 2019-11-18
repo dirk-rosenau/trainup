@@ -16,4 +16,5 @@ interface TrainingRepository {
 
     fun getInitialTrainingSetForStation(id: Long): Observable<TrainingSet>
 
+    fun getTrainingSetsForActualTraining(stationId: Long): Observable<TrainingSet>
 }

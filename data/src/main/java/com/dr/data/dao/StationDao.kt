@@ -1,9 +1,6 @@
 package com.dr.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.dr.data.entities.Station
 import io.reactivex.Observable
 
@@ -18,4 +15,8 @@ interface StationDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStation(station: Station): Long
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateStation(station: Station)
+
 }

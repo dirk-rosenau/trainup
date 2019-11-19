@@ -19,7 +19,7 @@ interface TrainingsSetDao {
 
 
     @Query("SELECT * FROM training_sets WHERE stationId = :stationId AND date > :pastTime ORDER BY date")
-    fun getTrainingSetsForLastHours(stationId: Long, pastTime: Long): Observable<TrainingSet>
+    fun getTrainingSetsForLastHours(stationId: Long, pastTime: Long): Observable<List<TrainingSet>>
 
     @Insert
     fun insertTrainingSet(set: TrainingSet): Long

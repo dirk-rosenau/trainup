@@ -14,12 +14,12 @@ import javax.inject.Inject
 
 class TrainingViewVM @Inject constructor(
     app: Application,
-    val trainingRepository: TrainingRepository
+    private val trainingRepository: TrainingRepository
 ) : ObservableViewModel(app) {
 
     private val disposables = CompositeDisposable()
 
-    val trainingSets = mutableListOf<TrainingSet>()
+    private val trainingSets = mutableListOf<TrainingSet>()
 
     private var station: Station? = null
         private set(value) {
@@ -28,6 +28,7 @@ class TrainingViewVM @Inject constructor(
                 notifyPropertyChanged(BR.trainingName)
                 notifyPropertyChanged(BR.weight)
                 notifyPropertyChanged(BR.repeats)
+                notifyPropertyChanged(BR.labelFinishSet)
             }
         }
 
@@ -48,22 +49,31 @@ class TrainingViewVM @Inject constructor(
 
     @get:Bindable
     val labelFinishSet: String
-        get() = getApplication<Application>().getString(R.string.finish_set, 1)
+        get() = getApplication<Application>().getString(R.string.finish_set, trainingSets.size)
 
     fun init(stationId: Long) {
-        trainingRepository.getStation(stationId)
-            .subscribe { onStationLoaded(it) }.addTo(disposables)
+        trainingRepository.getStation(stationId).subscribe { onStationLoaded(it) }
+            .addTo(disposables)
 
-        // TODO training sets laden für genau dieses training (tageweise?) oder 5h minus / plus?
+        trainingRepository.getTrainingSetsForActualTraining(stationId)
+            .subscribe {
+                onTrainingSetLoaded(it)
+            }.addTo(disposables)
     }
 
     private fun onStationLoaded(station: Station) {
         this.station = station
     }
 
-    private fun saveStation(station: Station?) {
+    private fun onTrainingSetLoaded(trainingSets: List<TrainingSet>) {
+        this.trainingSets.clear()
+        this.trainingSets.addAll(trainingSets)
+        notifyPropertyChanged(BR.labelFinishSet)
+    }
+
+    private fun updateStation(station: Station?) {
         station?.let {
-            trainingRepository.saveStation(it).subscribe()
+            trainingRepository.updateStation(it).subscribe()
         }
     }
 
@@ -72,23 +82,24 @@ class TrainingViewVM @Inject constructor(
     }
 
     fun onWeightMinus() {
-        station = station?.let { it.copy(actualWeight = it.actualWeight - 1) }
-        saveStation(station)
+        station =
+            station?.let { station -> station.copy(actualWeight = station.actualWeight.decIfGreater(0)) }
+        updateStation(station)
     }
 
     fun onWeightPlus() {
         station = station?.let { it.copy(actualWeight = it.actualWeight + 1) }
-        saveStation(station)
+        updateStation(station)
     }
 
     fun onRepeatsMinus() {
-        station = station?.let { it.copy(actualRepeats = it.actualRepeats - 1) }
-        saveStation(station)
+        station = station?.let { it.copy(actualRepeats = it.actualRepeats.decIfGreater(1)) }
+        updateStation(station)
     }
 
     fun onRepeatsPlus() {
         station = station?.let { it.copy(actualRepeats = it.actualRepeats + 1) }
-        saveStation(station)
+        updateStation(station)
     }
 
     fun onFinishSet() {
@@ -102,5 +113,11 @@ class TrainingViewVM @Inject constructor(
 
             saveTrainingSet(set)
         }
+    }
+
+    private fun Int.decIfGreater(value: Int): Int = if (this > value) {
+        this.dec()
+    } else {
+        this
     }
 }

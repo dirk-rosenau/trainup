@@ -3,6 +3,7 @@ package com.dr.data.repositories
 import com.dr.data.AppDatabase
 import com.dr.data.entities.Station
 import com.dr.data.entities.TrainingSet
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,8 +12,8 @@ import javax.inject.Inject
 
 class TrainingRepositoryImpl @Inject constructor(private val database: AppDatabase) :
     TrainingRepository {
-    override fun getTrainingSetsForActualTraining(stationId: Long): Observable<TrainingSet> {
-        val timeToSubstract = 5 * 60 * 60
+    override fun getTrainingSetsForActualTraining(stationId: Long): Observable<List<TrainingSet>> {
+        val timeToSubstract = 5 * 60 * 60 * 1000
         val pastTime = System.currentTimeMillis() - timeToSubstract
 
         return database.trainingSetDao().getTrainingSetsForLastHours(stationId, pastTime)
@@ -38,6 +39,12 @@ class TrainingRepositoryImpl @Inject constructor(private val database: AppDataba
     override fun saveStation(station: Station): Single<Long> {
         return Single.fromCallable {
             database.stationDao().insertStation(station)
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun updateStation(station: Station): Completable {
+        return Completable.fromCallable {
+            database.stationDao().updateStation(station)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 

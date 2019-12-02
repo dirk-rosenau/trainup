@@ -16,11 +16,27 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
 
     private val compositeDisposable = CompositeDisposable()
 
-    private var _actionModeEnabled = MutableLiveData<Boolean>(false)
-    val actionModeEnabled: LiveData<Boolean> = _actionModeEnabled
 
-    private val _stationData = MutableLiveData<List<Station>>()
-    val stationData: LiveData<List<Station>> = _stationData
+    private val _itemVMs = MutableLiveData<List<ExerciseOverviewItemVM>>()
+    val itemVms: LiveData<List<ExerciseOverviewItemVM>> = _itemVMs
+
+    private val actionMode = MutableLiveData<Boolean>(false)
+
+    var actionModeEnabled: Boolean
+        get() = actionMode.value == true
+        set(value) {
+            if (actionModeEnabled != value) {
+                actionMode.value = value
+                notifyActionModeChange()
+            }
+        }
+
+    private fun notifyActionModeChange() {
+        itemVms.value?.forEach {
+
+            //   it.notifyPropertyChanged(BR.actionModeEnabled)
+        }
+    }
 
     fun loadExercises() {
         trainingRepository.getStations().observeOn(AndroidSchedulers.mainThread())
@@ -30,8 +46,17 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     private fun onStationDataLoaded(it: List<Station>?) {
-        _stationData.value = it
+        val itemVMList = mutableListOf<ExerciseOverviewItemVM>()
+        it?.forEach {
+            itemVMList.add(ExerciseOverviewItemVM(it, ::onIntent, ::actionModeEnabled))
+        }
+        _itemVMs.value = itemVMList
     }
+
+    private fun onIntent(intent: OverviewIntent) {
+
+    }
+
 
     private fun processError(it: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

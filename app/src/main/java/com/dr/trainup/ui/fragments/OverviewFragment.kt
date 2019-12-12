@@ -13,14 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dr.data.entities.Station
-import com.dr.trainup.ui.adapter.ExerciseOverviewAdapter
 import com.dr.trainup.R
 import com.dr.trainup.databinding.FragmentOverviewBinding
+import com.dr.trainup.ui.adapter.ExerciseOverviewAdapter
 import com.dr.trainup.ui.vm.ExerciseOverviewItemVM
 import com.dr.trainup.ui.vm.OverviewFragmentVM
-import dagger.android.support.AndroidSupportInjection
 import com.trainup.common.ui.PrimaryActionModeCallback
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class OverviewFragment : Fragment() {
@@ -50,16 +49,22 @@ class OverviewFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[OverviewFragmentVM::class.java]
         binding.exercises.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.itemVms.observe(viewLifecycleOwner){
-            handle(it)
+        viewModel.itemVms.observe(viewLifecycleOwner) {
+            handleNewData(it)
+        }
+
+        viewModel.actionMode.observe(viewLifecycleOwner) {
+            if (it) {
+                startActionMode()
+            }
         }
 
         viewModel.loadExercises()
-
     }
 
-    private fun handle(it: List<ExerciseOverviewItemVM>) {
+    private fun handleNewData(it: List<ExerciseOverviewItemVM>) {
         val adapter = ExerciseOverviewAdapter(it)
+        binding.exercises.swapAdapter(adapter, true)
     }
 
     private fun onLongClickItem(stationId: Long) {

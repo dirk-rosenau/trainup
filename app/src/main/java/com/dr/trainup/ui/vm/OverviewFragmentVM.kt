@@ -20,13 +20,15 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     private val _itemVMs = MutableLiveData<List<ExerciseOverviewItemVM>>()
     val itemVms: LiveData<List<ExerciseOverviewItemVM>> = _itemVMs
 
-    private val actionMode = MutableLiveData<Boolean>(false)
+    private val _actionMode = MutableLiveData<Boolean>(false)
+
+    val actionMode: LiveData<Boolean> = _actionMode
 
     var actionModeEnabled: Boolean
-        get() = actionMode.value == true
+        get() = _actionMode.value == true
         set(value) {
-            if (actionModeEnabled != value) {
-                actionMode.value = value
+            if (actionMode.value != value) {
+                _actionMode.value = value
                 notifyActionModeChange()
             }
         }
@@ -54,7 +56,10 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     private fun onIntent(intent: OverviewIntent) {
-
+        // TODO handle intent action, e.g. with life data
+        when (intent) {
+            is RequestActionModeIntent -> actionModeEnabled = true
+        }
     }
 
 

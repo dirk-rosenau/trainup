@@ -14,6 +14,8 @@ interface TrainingRepository {
 
     fun saveStation(station: Station): Single<Long>
 
+    fun deleteStation(id: Long): Completable
+
     fun updateStation(station: Station): Completable
 
     fun saveSet(set: TrainingSet): Single<Long>

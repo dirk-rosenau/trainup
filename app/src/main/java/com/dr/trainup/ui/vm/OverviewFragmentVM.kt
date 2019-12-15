@@ -1,5 +1,6 @@
 package com.dr.trainup.ui.vm
 
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,8 +36,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
 
     private fun notifyActionModeChange() {
         itemVms.value?.forEach {
-
-            //   it.notifyPropertyChanged(BR.actionModeEnabled)
+         //   it.notifyPropertyChanged(BR.actionModeEnabled)
         }
     }
 
@@ -56,9 +56,23 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     private fun onIntent(intent: OverviewIntent) {
-        // TODO handle intent action, e.g. with life data
+        // TODO use case?
         when (intent) {
             is RequestActionModeIntent -> actionModeEnabled = true
+        }
+    }
+
+    fun deselectItems(){
+        itemVms.value?.forEach {
+            it.selected = false;
+        }
+    }
+
+    fun deleteSelectedItems() {
+        _itemVMs.value?.filter { it.selected }?.map {
+            trainingRepository.deleteStation(it.id).subscribe {
+                loadExercises()
+            }
         }
     }
 

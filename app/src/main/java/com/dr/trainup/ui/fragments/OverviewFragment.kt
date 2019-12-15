@@ -4,10 +4,10 @@ package com.dr.trainup.ui.fragments
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -18,7 +18,6 @@ import com.dr.trainup.databinding.FragmentOverviewBinding
 import com.dr.trainup.ui.adapter.ExerciseOverviewAdapter
 import com.dr.trainup.ui.vm.ExerciseOverviewItemVM
 import com.dr.trainup.ui.vm.OverviewFragmentVM
-import com.trainup.common.ui.PrimaryActionModeCallback
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -28,6 +27,8 @@ class OverviewFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var binding: FragmentOverviewBinding
     private lateinit var viewModel: OverviewFragmentVM
+
+    private var actionMode: ActionMode? = null
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -56,6 +57,8 @@ class OverviewFragment : Fragment() {
         viewModel.actionMode.observe(viewLifecycleOwner) {
             if (it) {
                 startActionMode()
+            } else {
+                exitActionMode()
             }
         }
 
@@ -81,20 +84,62 @@ class OverviewFragment : Fragment() {
 
 
     private fun startActionMode() {
-        activity?.startActionMode(
-            PrimaryActionModeCallback(
-                R.menu.menu_overview_actionmode,
-                "",
-                "",
-                ::handleActionModeItemClicked
+        actionMode = (activity as? AppCompatActivity)?.run {
+            startSupportActionMode(
+//                PrimaryActionModeCallback(
+//                    R.menu.menu_overview_actionmode,
+//                    "",
+//                    "",
+//                    ::handleActionModeItemClicked
+//                )
+                createActionModeCallback()
             )
-        )
+        }
+    }
+
+    private fun createActionModeCallback(): ActionMode.Callback {
+        return object : ActionMode.Callback {
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                when (item?.itemId) {
+                    R.id.menu_edit -> Log.d("actionmode", "edit")
+                    R.id.menu_delete -> viewModel.deleteSelectedItems()
+                }
+                return true
+            }
+
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                mode?.menuInflater?.inflate(R.menu.menu_overview_actionmode, menu)
+                mode?.title = "Blub"
+                viewModel.actionModeEnabled = true
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                return true
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode?) {
+                viewModel.actionModeEnabled = false
+            }
+
+        }
+    }
+
+    private fun exitActionMode() {
+        actionMode?.finish()
+        actionMode = null
+        viewModel.deselectItems()
     }
 
     private fun handleActionModeItemClicked(id: Int) {
         when (id) {
             R.id.menu_edit -> Log.d("actionmode", "edit")
-            R.id.menu_delete -> Log.d("actionmode", "delete")
+            R.id.menu_delete -> handleItemDelete()
         }
+    }
+
+    private fun handleItemDelete() {
+        Log.d("actionmode", "delete")
+        viewModel.deleteSelectedItems()
     }
 }

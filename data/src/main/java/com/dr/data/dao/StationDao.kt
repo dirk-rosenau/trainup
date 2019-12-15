@@ -19,4 +19,7 @@ interface StationDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateStation(station: Station)
 
+    @Query("DELETE FROM stations WHERE id = :id")
+    fun deleteStation(id: Long)
+
 }

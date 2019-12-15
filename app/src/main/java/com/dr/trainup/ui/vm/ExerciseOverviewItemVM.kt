@@ -2,6 +2,7 @@ package com.dr.trainup.ui.vm
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.databinding.library.baseAdapters.BR
 import com.dr.data.entities.Station
 
 class ExerciseOverviewItemVM(
@@ -19,13 +20,15 @@ class ExerciseOverviewItemVM(
         get() {
             return field
         }
-        set(value: Boolean) {
+        set(value) {
             field = value
             onIntent(SelectionChangedIntent)
+            notifyPropertyChanged(BR.selected)
         }
 
     fun onItemClick() {
         onIntent(SelectItemIntent(station.id))
+        selected = !selected
     }
 
     fun onItemLongClick(): Boolean = if (!actionModeEnabled) {
@@ -33,8 +36,12 @@ class ExerciseOverviewItemVM(
         selected = true
         true
     } else {
+        onIntent(SelectItemIntent(station.id))
+        selected = !selected
         false
     }
 
     val stationName = station.name
+
+    val id = station.id
 }

@@ -7,6 +7,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.internal.operators.completable.CompletableFromCallable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -39,6 +40,12 @@ class TrainingRepositoryImpl @Inject constructor(private val database: AppDataba
     override fun saveStation(station: Station): Single<Long> {
         return Single.fromCallable {
             database.stationDao().insertStation(station)
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun deleteStation(id: Long): Completable {
+        return CompletableFromCallable {
+            database.stationDao().deleteStation(id)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 

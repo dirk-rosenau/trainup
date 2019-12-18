@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         val navController = findNavController(R.id.nav_fragment)
         bottom_navigation.setupWithNavController(navController)
 
-        navController.navigate(R.id.overviewFragment)
+       
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

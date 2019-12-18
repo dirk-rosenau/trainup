@@ -28,8 +28,11 @@ class ExerciseOverviewItemVM(
         }
 
     fun onItemClick() {
-        onIntent(SelectItemIntent(station.id))
-        selected = !selected
+        if (actionModeEnabled) {
+            selected = !selected
+        } else {
+            onIntent(SelectItemIntent(station.id))
+        }
     }
 
     fun onItemLongClick(): Boolean = if (!actionModeEnabled) {
@@ -37,7 +40,6 @@ class ExerciseOverviewItemVM(
         selected = true
         true
     } else {
-        onIntent(SelectItemIntent(station.id))
         selected = !selected
         false
     }

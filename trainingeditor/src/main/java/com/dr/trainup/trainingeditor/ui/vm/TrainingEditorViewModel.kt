@@ -4,17 +4,17 @@ import android.app.Application
 import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.MutableLiveData
 import com.dr.data.entities.Station
 import com.dr.data.entities.TrainingSet
 import com.dr.data.repositories.TrainingRepository
 import com.trainup.common.ObservableViewModel
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
 class TrainingEditorViewModel @Inject constructor(
     app: Application,
-    val trainingRepository: TrainingRepository
+    private val trainingRepository: TrainingRepository
 ) : ObservableViewModel(app) {
 
     private var station: Station? = null
@@ -57,38 +57,23 @@ class TrainingEditorViewModel @Inject constructor(
 
     private val disposables = CompositeDisposable()
 
-    // TODO view model must get an single exercise, adds stuff to it
-
-    // TODO hide in getter
-    val addButtonLiveData = MutableLiveData<Int>()
-
     fun init(stationId: Long) {
-        val disp = trainingRepository.getStation(stationId)
-            .subscribe { onStationLoaded(it) }
-        val disp2 =
-            trainingRepository.getInitialTrainingSetForStation(stationId)
-                .subscribe { onTrainingSetLoaded(it) }
-        disposables.add(disp)
-        disposables.add(disp2)
+        trainingRepository.getStation(stationId)
+            .subscribe { onStationLoaded(it) }.addTo(disposables)
     }
 
     private fun onStationLoaded(station: Station) {
         this.station = station
         stationName = station.name
         seatPosition = station.seatPosition
-    }
-
-    private fun onTrainingSetLoaded(trainingSet: TrainingSet) {
-        this.trainingSet = trainingSet
-        repeats = trainingSet.repeats.toString()
-        weight = trainingSet.weight.toString()
-        weightUnit = trainingSet.weightUnit
+        repeats = station.actualRepeats.toString()
+        weight = station.actualWeight.toString()
+        weightUnit = station.actualWeightUnit
     }
 
     fun saveStationData() {
-
         val stationID = station?.id ?: 0
-        val station = // muss id ersetzt werden?
+        val station =
             Station(
                 stationID,
                 stationName,
@@ -98,20 +83,9 @@ class TrainingEditorViewModel @Inject constructor(
                 seatPosition
             )
 
-        val trainingSetId = trainingSet?.id ?: 0
-        val date = trainingSet?.date ?: System.currentTimeMillis()
-
-        val dispo = trainingRepository.saveStation(station)
+        trainingRepository.saveStation(station)
             .subscribe({}, { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
-
-
-//        val dispo = trainingRepository.saveStation(station).flatMap { stationId ->
-//            val set = TrainingSet(
-//                trainingSetId, stationId, date, weight.toInt(), weightUnit, reps
-//            )
-//            trainingRepository.saveSet(set)
-//        }.subscribe({}, { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
-        disposables.add(dispo)
+            .addTo(disposables)
     }
 
     override fun onCleared() {

@@ -17,6 +17,8 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
 
     private val compositeDisposable = CompositeDisposable()
 
+    private val _itemSelected = MutableLiveData<Long>()
+    val itemSelected: LiveData<Long> = _itemSelected
 
     private val _itemVMs = MutableLiveData<List<ExerciseOverviewItemVM>>()
     val itemVms: LiveData<List<ExerciseOverviewItemVM>> = _itemVMs
@@ -59,12 +61,13 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         // TODO use case?
         when (intent) {
             is RequestActionModeIntent -> actionModeEnabled = true
+            //   is SelectItemIntent ->
         }
     }
 
     fun deselectItems() {
         itemVms.value?.forEach {
-            it.selected = false;
+            it.selected = false
         }
     }
 
@@ -76,8 +79,15 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         }
     }
 
-
     private fun processError(it: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun getSelectedItems(): List<Long> {
+        val resultList = mutableListOf<Long>()
+        itemVms.value?.filter { it.selected }?.forEach {
+            resultList.add(it.id)
+        }
+        return resultList
     }
 }

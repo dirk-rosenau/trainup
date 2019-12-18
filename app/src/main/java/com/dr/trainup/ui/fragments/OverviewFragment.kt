@@ -3,15 +3,15 @@ package com.dr.trainup.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dr.trainup.R
 import com.dr.trainup.databinding.FragmentOverviewBinding
@@ -54,6 +54,10 @@ class OverviewFragment : Fragment() {
             handleNewData(it)
         }
 
+        viewModel.itemSelected.observe(viewLifecycleOwner) {
+            // TODO navigate to training view with this exercise
+        }
+
         viewModel.actionMode.observe(viewLifecycleOwner) {
             if (it) {
                 startActionMode()
@@ -70,28 +74,9 @@ class OverviewFragment : Fragment() {
         binding.exercises.swapAdapter(adapter, true)
     }
 
-    private fun onLongClickItem(stationId: Long) {
-//        val bundle = Bundle()
-//        bundle.putLong("id", stationId)
-//        findNavController().navigate(R.id.trainingEditActivity, bundle)
-
-        startActionMode()
-    }
-
-    private fun onClickItem(stationId: Long) {
-        Toast.makeText(context, "Click: $stationId", Toast.LENGTH_LONG).show()
-    }
-
-
     private fun startActionMode() {
         actionMode = (activity as? AppCompatActivity)?.run {
             startSupportActionMode(
-//                PrimaryActionModeCallback(
-//                    R.menu.menu_overview_actionmode,
-//                    "",
-//                    "",
-//                    ::handleActionModeItemClicked
-//                )
                 createActionModeCallback()
             )
         }
@@ -101,7 +86,7 @@ class OverviewFragment : Fragment() {
         return object : ActionMode.Callback {
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
                 when (item?.itemId) {
-                    R.id.menu_edit -> Log.d("actionmode", "edit")
+                    R.id.menu_edit -> handleMenuEditClick()
                     R.id.menu_delete -> viewModel.deleteSelectedItems()
                 }
                 return true
@@ -121,7 +106,16 @@ class OverviewFragment : Fragment() {
             override fun onDestroyActionMode(mode: ActionMode?) {
                 viewModel.actionModeEnabled = false
             }
+        }
+    }
 
+    private fun handleMenuEditClick() {
+        val navController = findNavController(activity as FragmentActivity, R.id.nav_fragment)
+        val items = viewModel.getSelectedItems()
+        items.firstOrNull()?.let {
+            val bundle = Bundle()
+            bundle.putLong("id", it)
+            navController.navigate(R.id.trainingEditActivity, bundle)
         }
     }
 
@@ -129,17 +123,5 @@ class OverviewFragment : Fragment() {
         actionMode?.finish()
         actionMode = null
         viewModel.deselectItems()
-    }
-
-    private fun handleActionModeItemClicked(id: Int) {
-        when (id) {
-            R.id.menu_edit -> Log.d("actionmode", "edit")
-            R.id.menu_delete -> handleItemDelete()
-        }
-    }
-
-    private fun handleItemDelete() {
-        Log.d("actionmode", "delete")
-        viewModel.deleteSelectedItems()
     }
 }

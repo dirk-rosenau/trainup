@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    var actionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         val navController = findNavController(R.id.nav_fragment)
         bottom_navigation.setupWithNavController(navController)
 
-       
+
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

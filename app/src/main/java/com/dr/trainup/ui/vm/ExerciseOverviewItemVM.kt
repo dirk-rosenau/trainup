@@ -15,6 +15,7 @@ class ExerciseOverviewItemVM(
     val actionModeEnabled: Boolean
         get() = actionModeDelegate()
 
+
     @get:Bindable
     var selected: Boolean = false
         get() {

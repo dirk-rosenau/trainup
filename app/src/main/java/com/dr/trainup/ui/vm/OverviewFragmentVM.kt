@@ -36,7 +36,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
 
     private fun notifyActionModeChange() {
         itemVms.value?.forEach {
-         //   it.notifyPropertyChanged(BR.actionModeEnabled)
+            it.notifyPropertyChanged(BR.actionModeEnabled)
         }
     }
 
@@ -62,7 +62,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         }
     }
 
-    fun deselectItems(){
+    fun deselectItems() {
         itemVms.value?.forEach {
             it.selected = false;
         }

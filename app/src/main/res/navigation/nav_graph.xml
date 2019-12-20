@@ -32,6 +32,11 @@
         <action
                 android:id="@+id/action_overviewFragment_to_trainingEditActivity"
                 app:destination="@id/trainingEditActivity" />
+        <action
+                android:id="@+id/action_overviewFragment_to_exerciseFragment"
+                app:destination="@id/exerciseFragment"
+                app:enterAnim="@anim/fragment_fade_enter"
+                app:exitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <activity
             android:id="@+id/trainingEditActivity"

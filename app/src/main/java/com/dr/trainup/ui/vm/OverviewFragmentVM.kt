@@ -61,8 +61,12 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         // TODO use case?
         when (intent) {
             is RequestActionModeIntent -> actionModeEnabled = true
-            //   is SelectItemIntent ->
+            is SelectItemIntent -> handleSelectItem(intent.id)
         }
+    }
+
+    private fun handleSelectItem(id: Long) {
+        _itemSelected.value = id
     }
 
     fun deselectItems() {

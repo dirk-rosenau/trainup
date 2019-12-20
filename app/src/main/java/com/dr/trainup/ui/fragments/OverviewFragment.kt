@@ -19,6 +19,7 @@ import com.dr.trainup.ui.adapter.ExerciseOverviewAdapter
 import com.dr.trainup.ui.vm.ExerciseOverviewItemVM
 import com.dr.trainup.ui.vm.OverviewFragmentVM
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.fragment_overview.*
 import javax.inject.Inject
 
 class OverviewFragment : Fragment() {
@@ -55,7 +56,7 @@ class OverviewFragment : Fragment() {
         }
 
         viewModel.itemSelected.observe(viewLifecycleOwner) {
-            // TODO navigate to training view with this exercise
+            navigateToTrainingView(it)
         }
 
         viewModel.actionMode.observe(viewLifecycleOwner) {
@@ -110,14 +111,27 @@ class OverviewFragment : Fragment() {
     }
 
     private fun handleMenuEditClick() {
-        val navController = findNavController(activity as FragmentActivity, R.id.nav_fragment)
+        val navController = getNavController()
         val items = viewModel.getSelectedItems()
         items.firstOrNull()?.let {
             val bundle = Bundle()
             bundle.putLong("id", it)
             navController.navigate(R.id.trainingEditActivity, bundle)
         }
+        exercises.postDelayed({ exitActionMode() }, 200)
     }
+
+
+    private fun navigateToTrainingView(id: Long) {
+        val navController = getNavController()
+        val bundle = Bundle()
+        bundle.putLong("id", id)
+        // TODO maybe safe args?
+        navController.navigate(R.id.action_overviewFragment_to_exerciseFragment, bundle)
+    }
+
+    private fun getNavController() =
+        findNavController(activity as FragmentActivity, R.id.nav_fragment)
 
     private fun exitActionMode() {
         actionMode?.finish()

@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_STATION_ID = "station_id"
+private const val ARG_STATION_ID = "id"
 
 /**
  * A simple [Fragment] subclass.
@@ -39,7 +39,6 @@ class TrainingViewFragment : Fragment() {
         arguments?.let {
             stationId = it.getLong(ARG_STATION_ID)
         }
-
     }
 
     override fun onAttach(context: Context) {
@@ -70,7 +69,7 @@ class TrainingViewFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String) =
             TrainingViewFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_STATION_ID, param1)

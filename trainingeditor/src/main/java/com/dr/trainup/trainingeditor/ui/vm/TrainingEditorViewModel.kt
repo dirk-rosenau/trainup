@@ -18,7 +18,6 @@ class TrainingEditorViewModel @Inject constructor(
 ) : ObservableViewModel(app) {
 
     private var station: Station? = null
-    private var trainingSet: TrainingSet? = null
 
     @get:Bindable
     var stationName = ""

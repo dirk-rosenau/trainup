@@ -23,7 +23,7 @@
             android:id="@+id/exerciseFragment"
             android:name="com.dr.trainup.trainingview.ui.TrainingViewFragment"
             android:label="fragment_exercise"
-            tools:layout="@layout/fragment_exercise" />
+            tools:layout="@layout/fragement_training_view" />
     <fragment
             android:id="@+id/overviewFragment"
             android:name="com.dr.trainup.ui.fragments.OverviewFragment"

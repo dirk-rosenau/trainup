@@ -29,7 +29,6 @@ class TrainingEditorFragment : Fragment() {
 
     private lateinit var binding: TrainingEditorFragmentBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +51,6 @@ class TrainingEditorFragment : Fragment() {
             ViewModelProviders.of(this, viewModelFactory)[TrainingEditorViewModel::class.java]
 
         val id = arguments?.getLong("id")
-
         id?.let { viewModel.init(id) }
         binding.vm = viewModel
     }

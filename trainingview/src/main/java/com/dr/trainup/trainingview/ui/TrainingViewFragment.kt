@@ -15,15 +15,8 @@ import com.dr.trainup.trainingview.vm.TrainingViewVM
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_STATION_ID = "id"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TrainingViewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TrainingViewFragment : Fragment() {
     private var stationId: Long? = null
 
@@ -50,22 +43,16 @@ class TrainingViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         val view = inflater.inflate(R.layout.fragement_training_view, container, false)
         viewModel =
             ViewModelProviders.of(this, viewModelFactory)[TrainingViewVM::class.java]
 
         binding = FragementTrainingViewBinding.bind(view)
         binding.vm = viewModel
-        // TODO start-station auswählen
-        viewModel.init(1)
 
-
-
+        stationId?.let { viewModel.init(it) }
         return view
     }
-
 
     companion object {
         @JvmStatic

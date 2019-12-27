@@ -11,6 +11,6 @@ data class Station(
     val actualWeight: Int,
     val actualWeightUnit: String,
     val actualRepeats: Int,
-    val seatPosition: String
+    val seatPosition: String?
 // TODO image
 )

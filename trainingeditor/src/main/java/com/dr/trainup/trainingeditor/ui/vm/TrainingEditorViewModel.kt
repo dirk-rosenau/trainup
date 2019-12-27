@@ -4,8 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.MutableLiveData
 import com.dr.data.entities.Station
-import com.dr.data.entities.TrainingSet
 import com.dr.data.repositories.TrainingRepository
 import com.trainup.common.ObservableViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -19,6 +19,9 @@ class TrainingEditorViewModel @Inject constructor(
 
     private var station: Station? = null
 
+
+    var stationSaved = MutableLiveData<Boolean>(false)
+
     @get:Bindable
     var stationName = ""
         set(value) {
@@ -27,7 +30,7 @@ class TrainingEditorViewModel @Inject constructor(
         }
 
     @get:Bindable
-    var seatPosition: String = ""
+    var seatPosition: String? = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.seatPosition)
@@ -71,21 +74,29 @@ class TrainingEditorViewModel @Inject constructor(
     }
 
     fun saveStationData() {
-        val stationID = station?.id ?: 0
-        val station =
-            Station(
-                stationID,
-                stationName,
-                weight.toInt(),
-                weightUnit,
-                repeats.toInt(),
-                seatPosition
-            )
+        if (textFieldsAreValid()) {
+            val stationID = station?.id ?: 0
+            val station =
+                Station(
+                    stationID,
+                    stationName,
+                    weight.toInt(),
+                    weightUnit,
+                    repeats.toInt(),
+                    seatPosition
+                )
 
-        trainingRepository.saveStation(station)
-            .subscribe({}, { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
-            .addTo(disposables)
+            trainingRepository.saveStation(station)
+                .subscribe(
+                    { stationSaved.value = true },
+                    { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
+                .addTo(disposables)
+        }
     }
+
+    private fun textFieldsAreValid(): Boolean = weight.isNotEmpty()
+            && repeats.isNotEmpty()
+            && stationName.isNotEmpty()
 
     override fun onCleared() {
         super.onCleared()

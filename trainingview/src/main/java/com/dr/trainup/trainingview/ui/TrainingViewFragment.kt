@@ -50,7 +50,8 @@ class TrainingViewFragment : Fragment() {
         binding = FragementTrainingViewBinding.bind(view)
         binding.vm = viewModel
 
-        stationId?.let { viewModel.init(it) }
+        viewModel.init(stationId)
+
         return view
     }
 

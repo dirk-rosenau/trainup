@@ -51,18 +51,22 @@ class TrainingViewVM @Inject constructor(
     val labelFinishSet: String
         get() = getApplication<Application>().getString(R.string.finish_set, trainingSets.size)
 
-    fun init(stationId: Long) {
-        trainingRepository.getStation(stationId).subscribe { onStationLoaded(it) }
-            .addTo(disposables)
-
-        trainingRepository.getTrainingSetsForActualTraining(stationId)
-            .subscribe {
-                onTrainingSetLoaded(it)
-            }.addTo(disposables)
+    fun init(stationId: Long?) {
+        if (stationId == null) {
+            trainingRepository.getFirstStation().subscribe { onStationLoaded(it) }
+                .addTo(disposables)
+        } else {
+            trainingRepository.getStation(stationId).subscribe { onStationLoaded(it) }
+                .addTo(disposables)
+        }
     }
 
     private fun onStationLoaded(station: Station) {
         this.station = station
+        trainingRepository.getTrainingSetsForActualTraining(station.id)
+            .subscribe {
+                onTrainingSetLoaded(it)
+            }.addTo(disposables)
     }
 
     private fun onTrainingSetLoaded(trainingSets: List<TrainingSet>) {
@@ -83,7 +87,13 @@ class TrainingViewVM @Inject constructor(
 
     fun onWeightMinus() {
         station =
-            station?.let { station -> station.copy(actualWeight = station.actualWeight.decIfGreater(0)) }
+            station?.let { station ->
+                station.copy(
+                    actualWeight = station.actualWeight.decIfGreater(
+                        0
+                    )
+                )
+            }
         updateStation(station)
     }
 

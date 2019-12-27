@@ -37,6 +37,11 @@ class TrainingRepositoryImpl @Inject constructor(private val database: AppDataba
         database.stationDao().getStations().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
 
+    override fun getFirstStation(): Observable<Station> =
+        database.stationDao().getFirstStation().subscribeOn(Schedulers.io()).observeOn(
+            AndroidSchedulers.mainThread()
+        )
+
     override fun saveStation(station: Station): Single<Long> {
         return Single.fromCallable {
             database.stationDao().insertStation(station)

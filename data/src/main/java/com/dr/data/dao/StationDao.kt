@@ -13,6 +13,10 @@ interface StationDao {
     @Query("SELECT * FROM stations WHERE id = :id")
     fun getStation(id: Long): Observable<Station>
 
+
+    @Query("SELECT * FROM stations LIMIT 1")
+    fun getFirstStation(): Observable<Station>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertStation(station: Station): Long
 

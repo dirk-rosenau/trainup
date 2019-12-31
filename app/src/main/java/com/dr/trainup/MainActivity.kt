@@ -1,6 +1,8 @@
 package com.dr.trainup
 
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -11,6 +13,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject
@@ -27,11 +30,22 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         bottom_navigation.setupWithNavController(navController)
 
 
-
+        enableShowOnLockScreen()
         fab.setOnClickListener { view ->
             //      Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
             //        .setAction("Action", null).show()
             navController.navigate(R.id.trainingEditActivity)
+        }
+    }
+
+    private fun enableShowOnLockScreen() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(true)
+        } else {
+            this.window.setFlags(
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+            )
         }
     }
 

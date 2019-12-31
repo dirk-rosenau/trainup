@@ -49,7 +49,7 @@ class TrainingViewVM @Inject constructor(
 
     @get:Bindable
     val labelFinishSet: String
-        get() = getApplication<Application>().getString(R.string.finish_set, trainingSets.size)
+        get() = getApplication<Application>().getString(R.string.finish_set, trainingSets.size + 1)
 
     fun init(stationId: Long?) {
         if (stationId == null) {

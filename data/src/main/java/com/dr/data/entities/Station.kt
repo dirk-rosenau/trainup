@@ -8,7 +8,7 @@ data class Station(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
-    val actualWeight: Int,
+    val actualWeight: Float,
     val actualWeightUnit: String,
     val actualRepeats: Int,
     val seatPosition: String?

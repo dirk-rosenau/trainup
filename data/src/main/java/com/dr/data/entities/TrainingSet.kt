@@ -19,7 +19,7 @@ data class TrainingSet(
     val id: Long,
     val stationId: Long,
     val date: Long,
-    val weight: Int,
+    val weight: Float,
     val weightUnit: String,
     val repeats: Int
 )

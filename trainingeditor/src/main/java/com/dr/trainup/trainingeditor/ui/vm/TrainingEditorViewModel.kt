@@ -80,7 +80,7 @@ class TrainingEditorViewModel @Inject constructor(
                 Station(
                     stationID,
                     stationName,
-                    weight.toInt(),
+                    weight.toFloat(),
                     weightUnit,
                     repeats.toInt(),
                     seatPosition

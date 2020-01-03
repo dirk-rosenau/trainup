@@ -90,7 +90,7 @@ class TrainingViewVM @Inject constructor(
             station?.let { station ->
                 station.copy(
                     actualWeight = station.actualWeight.decIfGreater(
-                        0
+                        0f
                     )
                 )
             }
@@ -123,6 +123,12 @@ class TrainingViewVM @Inject constructor(
 
             saveTrainingSet(set)
         }
+    }
+
+    private fun Float.decIfGreater(value: Float): Float = if (this > value) {
+        this.dec()
+    } else {
+        this
     }
 
     private fun Int.decIfGreater(value: Int): Int = if (this > value) {

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dr.data.entities.Station
 import com.dr.data.repositories.TrainingRepository
+import com.dr.trainup.ui.model.ExerciseOverviewItem
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -42,8 +43,13 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         }
     }
 
+    private fun mapToOverviewItem(station: Station): ExerciseOverviewItem {
+        return ExerciseOverviewItem(station.id, station.name, false)
+    }
+
     fun loadExercises() {
-        trainingRepository.getStations().observeOn(AndroidSchedulers.mainThread())
+        trainingRepository.getStations()
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = { onStationDataLoaded(it) },
                 onError = { processError(it) }).addTo(compositeDisposable)
@@ -51,11 +57,18 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
 
     private fun onStationDataLoaded(it: List<Station>?) {
         val itemVMList = mutableListOf<ExerciseOverviewItemVM>()
-        it?.forEach {
-            itemVMList.add(ExerciseOverviewItemVM(it, ::onIntent, ::actionModeEnabled))
+        it?.map { mapToOverviewItem(it) }?.forEach { item ->
+            itemVMList.add(
+                ExerciseOverviewItemVM(
+                    item,
+                    ::onIntent,
+                    ::actionModeEnabled
+                )
+            )
         }
         _itemVMs.value = itemVMList
     }
+
 
     private fun onIntent(intent: OverviewIntent) {
         // TODO use case?

@@ -3,10 +3,10 @@ package com.dr.trainup.ui.vm
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
-import com.dr.data.entities.Station
+import com.dr.trainup.ui.model.ExerciseOverviewItem
 
 class ExerciseOverviewItemVM(
-    private val station: Station,
+    private val item: ExerciseOverviewItem,
     private val onIntent: (OverviewIntent) -> Unit,
     private val actionModeDelegate: () -> Boolean
 ) : BaseObservable() {
@@ -31,7 +31,7 @@ class ExerciseOverviewItemVM(
         if (actionModeEnabled) {
             selected = !selected
         } else {
-            onIntent(SelectItemIntent(station.id))
+            onIntent(SelectItemIntent(item.id))
         }
     }
 
@@ -44,7 +44,7 @@ class ExerciseOverviewItemVM(
         false
     }
 
-    val stationName = station.name
+    val stationName = item.name
 
-    val id = station.id
+    val id = item.id
 }

@@ -1,5 +1,6 @@
 package com.dr.trainup.ui.vm
 
+import android.util.Log
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.dr.data.entities.Station
 import com.dr.data.repositories.TrainingRepository
 import com.dr.trainup.ui.model.ExerciseOverviewItem
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -44,7 +46,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     private fun mapToOverviewItem(station: Station): ExerciseOverviewItem {
-        return ExerciseOverviewItem(station.id, station.name, false)
+        return ExerciseOverviewItem(station.id, station.name, false, "")
     }
 
     fun loadExercises() {
@@ -55,9 +57,9 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
                 onError = { processError(it) }).addTo(compositeDisposable)
     }
 
-    private fun onStationDataLoaded(it: List<Station>?) {
+    private fun onStationDataLoaded(list: List<Station>?) {
         val itemVMList = mutableListOf<ExerciseOverviewItemVM>()
-        it?.map { mapToOverviewItem(it) }?.forEach { item ->
+        list?.map { mapToOverviewItem(it) }?.forEach { item ->
             itemVMList.add(
                 ExerciseOverviewItemVM(
                     item,
@@ -97,7 +99,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     private fun processError(it: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.d("OverviewFragment", it.localizedMessage)
     }
 
     fun getSelectedItems(): List<Long> {

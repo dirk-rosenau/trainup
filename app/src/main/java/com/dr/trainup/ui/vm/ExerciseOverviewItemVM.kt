@@ -17,6 +17,10 @@ class ExerciseOverviewItemVM(
 
 
     @get:Bindable
+    val lastExercise
+        get() = item.lastExercise
+
+    @get:Bindable
     var selected: Boolean = false
         get() {
             return field

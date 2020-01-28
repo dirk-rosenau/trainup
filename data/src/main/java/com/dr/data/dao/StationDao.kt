@@ -2,6 +2,7 @@ package com.dr.data.dao
 
 import androidx.room.*
 import com.dr.data.entities.Station
+import com.dr.data.entities.StationWithTime
 import io.reactivex.Observable
 
 
@@ -25,5 +26,8 @@ interface StationDao {
 
     @Query("DELETE FROM stations WHERE id = :id")
     fun deleteStation(id: Long)
+
+    @Query("SELECT stations.*, training_sets.* FROM stations INNER JOIN training_sets ON training_sets.stationId = stations.id")
+    fun getStationWithTime(): Observable<List<StationWithTime>>
 
 }

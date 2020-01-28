@@ -115,7 +115,7 @@ class TrainingViewVM @Inject constructor(
     fun onFinishSet() {
         station?.apply {
             val set = TrainingSet(
-                id = 0,
+                traininSetId = 0,
                 stationId = id,
                 date = System.currentTimeMillis(),
                 repeats = actualRepeats, weight = actualWeight, weightUnit = actualWeightUnit

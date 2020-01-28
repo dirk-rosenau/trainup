@@ -6,13 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dr.data.entities.Station
+import com.dr.data.entities.StationWithTime
 import com.dr.data.repositories.TrainingRepository
 import com.dr.trainup.ui.model.ExerciseOverviewItem
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 class OverviewFragmentVM @Inject constructor(private val trainingRepository: TrainingRepository) :
@@ -49,12 +51,47 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         return ExerciseOverviewItem(station.id, station.name, false, "")
     }
 
-    fun loadExercises() {
-        trainingRepository.getStations()
+
+    private fun mapToOverviewItem2(stationWithTime: StationWithTime): ExerciseOverviewItem {
+        // dd.MM.yyyy
+        val format =
+            SimpleDateFormat(Locale.getDefault().country).format(stationWithTime.trainingSet.date)
+        return ExerciseOverviewItem(
+            stationWithTime.station.id,
+            stationWithTime.station.name,
+            false,
+            format
+        )
+    }
+
+    fun load2() {
+        trainingRepository.getStationWithTime()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onNext = { onStationDataLoaded(it) },
+                onNext = { onStationDataLoaded2(it) },
                 onError = { processError(it) }).addTo(compositeDisposable)
+    }
+
+    private fun onStationDataLoaded2(list: List<StationWithTime>?) {
+        val itemVMList = mutableListOf<ExerciseOverviewItemVM>()
+        list?.map { mapToOverviewItem2(it) }?.forEach { item ->
+            itemVMList.add(
+                ExerciseOverviewItemVM(
+                    item,
+                    ::onIntent,
+                    ::actionModeEnabled
+                )
+            )
+        }
+    }
+
+    fun loadExercises() {
+        load2()
+//        trainingRepository.getStations()
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeBy(
+//                onNext = { onStationDataLoaded(it) },
+//                onError = { processError(it) }).addTo(compositeDisposable)
     }
 
     private fun onStationDataLoaded(list: List<Station>?) {

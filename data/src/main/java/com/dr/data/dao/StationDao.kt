@@ -27,7 +27,7 @@ interface StationDao {
     @Query("DELETE FROM stations WHERE id = :id")
     fun deleteStation(id: Long)
 
-    @Query("SELECT stations.*, training_sets.* FROM stations INNER JOIN training_sets ON training_sets.stationId = stations.id")
+    @Query("SELECT stations.*, training_sets.* FROM stations LEFT JOIN training_sets ON training_sets.stationId = stations.id")
     fun getStationWithTime(): Observable<List<StationWithTime>>
 
 }

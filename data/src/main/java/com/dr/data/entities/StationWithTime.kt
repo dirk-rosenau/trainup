@@ -6,5 +6,5 @@ data class StationWithTime(
     @Embedded
     val station: Station,
     @Embedded
-    val trainingSet: TrainingSet
+    val trainingSet: TrainingSet?
 )

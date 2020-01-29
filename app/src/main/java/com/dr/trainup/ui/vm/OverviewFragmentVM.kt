@@ -13,8 +13,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class OverviewFragmentVM @Inject constructor(private val trainingRepository: TrainingRepository) :
@@ -48,19 +46,18 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     private fun mapToOverviewItem(station: Station): ExerciseOverviewItem {
-        return ExerciseOverviewItem(station.id, station.name, false, "")
+        return ExerciseOverviewItem(station.id, station.name, false, null)
     }
 
 
     private fun mapToOverviewItem2(stationWithTime: StationWithTime): ExerciseOverviewItem {
-        // dd.MM.yyyy
-        val format =
-            SimpleDateFormat(Locale.getDefault().country).format(stationWithTime.trainingSet.date)
+        val dateLong = stationWithTime.trainingSet?.date
+
         return ExerciseOverviewItem(
             stationWithTime.station.id,
             stationWithTime.station.name,
             false,
-            format
+            stationWithTime.trainingSet?.date
         )
     }
 
@@ -83,6 +80,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
                 )
             )
         }
+        _itemVMs.value = itemVMList
     }
 
     fun loadExercises() {

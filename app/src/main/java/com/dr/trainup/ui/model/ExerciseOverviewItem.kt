@@ -4,5 +4,5 @@ data class ExerciseOverviewItem(
     val id: Long,
     val name: String,
     var selected: Boolean,
-    val lastExercise: String
+    val lastExercise: Long?
 )

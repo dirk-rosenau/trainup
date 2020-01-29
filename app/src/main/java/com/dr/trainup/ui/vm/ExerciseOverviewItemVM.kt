@@ -20,6 +20,10 @@ class ExerciseOverviewItemVM(
     val lastExercise
         get() = item.lastExercise
 
+//    private fun resolveStuff(): StringResource {
+//        return ""
+//    }
+
     @get:Bindable
     var selected: Boolean = false
         get() {

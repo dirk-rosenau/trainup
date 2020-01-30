@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
 )
 data class TrainingSet(
     @PrimaryKey(autoGenerate = true)
-    val traininSetId: Long,
+    val trainingSetId: Long,
     val stationId: Long,
     val date: Long,
     val weight: Float,

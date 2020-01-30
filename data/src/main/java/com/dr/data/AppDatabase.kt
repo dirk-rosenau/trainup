@@ -8,7 +8,7 @@ import com.dr.data.dao.TrainingsSetDao
 import com.dr.data.entities.Station
 import com.dr.data.entities.TrainingSet
 
-@Database(entities = [Station::class, TrainingSet::class], version = 1)
+@Database(entities = [Station::class, TrainingSet::class], version = 2)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 

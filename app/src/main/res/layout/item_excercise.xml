@@ -64,9 +64,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_4"
                 android:layout_marginBottom="@dimen/spacing_4"
-                android:text="@{viewModel.lastExercise}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:text="@{viewModel.lastExercise}"
+                app:textColor="@{viewModel.lastExerciseColor}"
                 tools:text="24.01.2020" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

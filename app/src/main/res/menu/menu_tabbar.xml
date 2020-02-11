@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
             android:id="@+id/overviewFragment"
             android:enabled="true"
             android:title="@string/home"
-            app:showAsAction="ifRoom"/>
-    <item
-            android:id="@+id/exerciseFragment"
-            android:enabled="true"
-            android:title="@string/training"
-            app:showAsAction="ifRoom"/>
+            app:showAsAction="always" />
     <item
             android:id="@+id/action_stats"
             android:enabled="true"
             android:title="@string/statistics"
-            app:showAsAction="ifRoom"/>
+            app:showAsAction="always" />
 </menu>

@@ -4,21 +4,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/nav_graph"
         app:startDestination="@id/overviewFragment">
-
-    <!-- TODO wird evtl nicht  mehr gebraucht!
-    <fragment
-            android:id="@+id/mainActivityFragment"
-            android:name="com.dr.trainup.ui.fragments.MainActivityFragment"
-            android:label="fragment_main"
-            tools:layout="@layout/fragment_main">
-        <action
-                android:id="@+id/action_mainActivityFragment_to_exerciseFragment"
-                app:destination="@id/exerciseFragment" />
-        <action
-                android:id="@+id/action_mainActivityFragment_to_overviewFragment"
-                app:destination="@id/overviewFragment" />
-    </fragment>
-    -->
     <fragment
             android:id="@+id/exerciseFragment"
             android:name="com.dr.trainup.trainingview.ui.TrainingViewFragment"

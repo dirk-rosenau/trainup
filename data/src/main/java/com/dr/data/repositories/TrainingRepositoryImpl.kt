@@ -4,9 +4,7 @@ import com.dr.data.AppDatabase
 import com.dr.data.entities.Station
 import com.dr.data.entities.StationWithTime
 import com.dr.data.entities.TrainingSet
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Single
+import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.internal.operators.completable.CompletableFromCallable
 import io.reactivex.schedulers.Schedulers
@@ -21,56 +19,67 @@ class TrainingRepositoryImpl @Inject constructor(private val database: AppDataba
     override fun getTrainingSetsForActualTraining(stationId: Long): Observable<List<TrainingSet>> {
 
         return database.trainingSetDao().getTrainingSetsForLastHours(stationId, pastTime)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .compose(applySchedulers())
     }
 
     override fun getInitialTrainingSetForStation(id: Long): Observable<TrainingSet> =
-        database.trainingSetDao().getInitialTrainingSet(id).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        database.trainingSetDao().getInitialTrainingSet(id).compose(applySchedulers())
 
 
     override fun getStation(id: Long): Observable<Station> =
-        database.stationDao().getStation(id).subscribeOn(Schedulers.io()).observeOn(
-            AndroidSchedulers.mainThread()
-        )
-
+        database.stationDao().getStation(id).compose(applySchedulers())
 
     override fun getStations(): Observable<List<Station>> =
-        database.stationDao().getStations().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-
+        database.stationDao().getStations().compose(applySchedulers())
 
     override fun getFirstStation(): Observable<Station> =
-        database.stationDao().getFirstStation().subscribeOn(Schedulers.io()).observeOn(
-            AndroidSchedulers.mainThread()
-        )
+        database.stationDao().getFirstStation().compose(applySchedulers())
 
     override fun getStationWithTime(): Observable<List<StationWithTime>> =
-        database.stationDao().getStationWithTime().subscribeOn(Schedulers.io()).observeOn(
-            AndroidSchedulers.mainThread()
-        )
+        database.stationDao().getStationWithTime().compose(applySchedulers())
 
     override fun saveStation(station: Station): Single<Long> {
         return Single.fromCallable {
             database.stationDao().insertStation(station)
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        }.compose(applySchedulersSingle())
     }
 
     override fun deleteStation(id: Long): Completable {
         return CompletableFromCallable {
             database.stationDao().deleteStation(id)
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        }.compose(applySchedulersCompletable())
     }
 
     override fun updateStation(station: Station): Completable {
         return Completable.fromCallable {
             database.stationDao().updateStation(station)
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        }.compose(applySchedulersCompletable())
     }
 
     override fun saveSet(set: TrainingSet): Single<Long> {
         return Single.fromCallable {
             database.trainingSetDao().insertTrainingSet(set)
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        }.compose(applySchedulersSingle())
+    }
+
+    private fun <T> applySchedulersSingle(): SingleTransformer<T, T> {
+        return SingleTransformer { observable ->
+            observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        }
+    }
+
+    private fun applySchedulersCompletable(): CompletableTransformer {
+        return CompletableTransformer { observable ->
+            observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        }
+    }
+
+    private fun <T> applySchedulers(): ObservableTransformer<T, T> {
+        return ObservableTransformer { observable ->
+            observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        }
     }
 }

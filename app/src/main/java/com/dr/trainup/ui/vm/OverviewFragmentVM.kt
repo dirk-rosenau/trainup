@@ -5,7 +5,6 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dr.data.entities.Station
 import com.dr.data.entities.StationWithTime
 import com.dr.data.repositories.TrainingRepository
 import com.dr.trainup.ui.model.ExerciseOverviewItem
@@ -45,14 +44,8 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         }
     }
 
-    private fun mapToOverviewItem(station: Station): ExerciseOverviewItem {
-        return ExerciseOverviewItem(station.id, station.name, false, null)
-    }
-
-
-    private fun mapToOverviewItem2(stationWithTime: StationWithTime): ExerciseOverviewItem {
-        val dateLong = stationWithTime.trainingSet?.date
-
+    // TODO move this to repository
+    private fun mapToOverviewItem(stationWithTime: StationWithTime): ExerciseOverviewItem {
         return ExerciseOverviewItem(
             stationWithTime.station.id,
             stationWithTime.station.name,
@@ -61,38 +54,15 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         )
     }
 
-    fun load2() {
+    fun loadExercises() {
         trainingRepository.getStationWithTime()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onNext = { onStationDataLoaded2(it) },
+                onNext = { onStationDataLoaded(it) },
                 onError = { processError(it) }).addTo(compositeDisposable)
     }
 
-    private fun onStationDataLoaded2(list: List<StationWithTime>?) {
-        val itemVMList = mutableListOf<ExerciseOverviewItemVM>()
-        list?.map { mapToOverviewItem2(it) }?.forEach { item ->
-            itemVMList.add(
-                ExerciseOverviewItemVM(
-                    item,
-                    ::onIntent,
-                    ::actionModeEnabled
-                )
-            )
-        }
-        _itemVMs.value = itemVMList
-    }
-
-    fun loadExercises() {
-        load2()
-//        trainingRepository.getStations()
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribeBy(
-//                onNext = { onStationDataLoaded(it) },
-//                onError = { processError(it) }).addTo(compositeDisposable)
-    }
-
-    private fun onStationDataLoaded(list: List<Station>?) {
+    private fun onStationDataLoaded(list: List<StationWithTime>?) {
         val itemVMList = mutableListOf<ExerciseOverviewItemVM>()
         list?.map { mapToOverviewItem(it) }?.forEach { item ->
             itemVMList.add(
@@ -105,7 +75,6 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
         }
         _itemVMs.value = itemVMList
     }
-
 
     private fun onIntent(intent: OverviewIntent) {
         // TODO use case?

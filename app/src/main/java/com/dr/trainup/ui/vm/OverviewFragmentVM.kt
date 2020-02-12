@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.dr.data.entities.StationWithTime
 import com.dr.data.repositories.TrainingRepository
 import com.dr.trainup.ui.model.ExerciseOverviewItem
+import com.trainup.common.util.Consumable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -19,8 +20,8 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _itemSelected = MutableLiveData<Long>()
-    val itemSelected: LiveData<Long> = _itemSelected
+    private val _itemSelected = MutableLiveData<Consumable<Long>>()
+    val itemSelected: LiveData<Consumable<Long>> = _itemSelected
 
     private val _itemVMs = MutableLiveData<List<ExerciseOverviewItemVM>>()
     val itemVms: LiveData<List<ExerciseOverviewItemVM>> = _itemVMs
@@ -85,7 +86,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     private fun handleSelectItem(id: Long) {
-        _itemSelected.value = id
+        _itemSelected.value = Consumable(id)
     }
 
     fun deselectItems() {

@@ -18,6 +18,7 @@ import com.dr.trainup.databinding.FragmentOverviewBinding
 import com.dr.trainup.ui.adapter.ExerciseOverviewAdapter
 import com.dr.trainup.ui.vm.ExerciseOverviewItemVM
 import com.dr.trainup.ui.vm.OverviewFragmentVM
+import com.trainup.common.util.invokeIfNotConsumed
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_overview.*
 import javax.inject.Inject
@@ -56,7 +57,7 @@ class OverviewFragment : Fragment() {
         }
 
         viewModel.itemSelected.observe(viewLifecycleOwner) {
-            navigateToTrainingView(it)
+            it.invokeIfNotConsumed { navigateToTrainingView(it) }
         }
 
         viewModel.actionMode.observe(viewLifecycleOwner) {

@@ -4,6 +4,7 @@ import androidx.room.*
 import com.dr.data.entities.Station
 import com.dr.data.entities.StationWithTime
 import io.reactivex.Observable
+import io.reactivex.Single
 
 
 @Dao
@@ -28,6 +29,9 @@ interface StationDao {
     fun deleteStation(id: Long)
 
     @Query("SELECT stations.*, training_sets.* FROM stations LEFT JOIN training_sets ON training_sets.stationId = stations.id GROUP BY stations.id ORDER BY training_sets.date DESC")
-    fun getStationWithTime(): Observable<List<StationWithTime>>
+    fun getStatiosWithLatestEditedTime(): Observable<List<StationWithTime>>
 
+    // TODO try this with coroutines
+    @Query("SELECT stations.*, training_sets.* FROM stations JOIN training_sets ON training_sets.stationId = stations.id")
+    fun getStationsWithTime(): Single<List<StationWithTime>>
 }

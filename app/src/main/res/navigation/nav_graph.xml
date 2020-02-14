@@ -17,6 +17,12 @@
         <action
                 android:id="@+id/action_overviewFragment_to_trainingEditActivity"
                 app:destination="@id/trainingEditActivity" />
+
+        <action
+                android:id="@+id/action_overviewFragment_to_statisticsFragment"
+                app:destination="@id/statisticsFragment"
+                app:enterAnim="@anim/fragment_fade_enter"
+                app:exitAnim="@anim/fragment_fade_exit" />
         <action
                 android:id="@+id/action_overviewFragment_to_exerciseFragment"
                 app:destination="@id/exerciseFragment"
@@ -25,6 +31,10 @@
                 app:popEnterAnim="@anim/fragment_fade_enter"
                 app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
+    <fragment
+            android:id="@+id/statisticsFragment"
+            android:name="com.dr.trainup.statistics.StatisticsFragment" />
+
     <activity
             android:id="@+id/trainingEditActivity"
             android:name="com.dr.trainup.trainingeditor.ui.TrainingEditActivity" />

@@ -7,7 +7,7 @@
             android:title="@string/home"
             app:showAsAction="always" />
     <item
-            android:id="@+id/action_stats"
+            android:id="@+id/statisticsFragment"
             android:enabled="true"
             android:title="@string/statistics"
             app:showAsAction="always" />

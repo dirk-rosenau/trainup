@@ -56,7 +56,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     fun loadExercises() {
-        trainingRepository.getStationsWithLatestEditedTime()
+        trainingRepository.getStationsWithLatestEditedTrainingSet()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = { onStationDataLoaded(it) },

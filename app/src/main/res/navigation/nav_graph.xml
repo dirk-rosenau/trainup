@@ -33,7 +33,7 @@
     </fragment>
     <fragment
             android:id="@+id/statisticsFragment"
-            android:name="com.dr.trainup.statistics.StatisticsFragment" />
+            android:name="com.dr.trainup.statistics.ui.StatisticsFragment" />
 
     <activity
             android:id="@+id/trainingEditActivity"

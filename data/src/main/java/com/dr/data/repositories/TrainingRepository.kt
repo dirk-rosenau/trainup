@@ -26,5 +26,7 @@ interface TrainingRepository {
     fun getInitialTrainingSetForStation(id: Long): Observable<TrainingSet>
 
     fun getTrainingSetsForActualTraining(stationId: Long): Observable<List<TrainingSet>>
-    fun getStationsWithLatestEditedTime(): Observable<List<StationWithTime>>
+    fun getStationsWithLatestEditedTrainingSet(): Observable<List<StationWithTime>>
+
+//    suspend fun getStationsWithTrainingSets(): List<StationWithTime>
 }

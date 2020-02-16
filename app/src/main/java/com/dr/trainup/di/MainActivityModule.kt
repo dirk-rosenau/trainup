@@ -2,6 +2,8 @@ package com.dr.trainup.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.dr.trainup.statistics.di.StatisticsFragmentModule
+import com.dr.trainup.statistics.di.StatisticsVMModule
 import com.dr.trainup.trainingview.di.TrainingViewFragmentModule
 import com.dr.trainup.trainingview.di.TrainingViewVMModule
 import com.trainup.common.ViewModelFactory
@@ -10,7 +12,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Provider
 
-@Module(includes = [FragmentModule::class, ViewModelModule::class, TrainingViewFragmentModule::class, TrainingViewVMModule::class])
+@Module(includes = [FragmentModule::class, ViewModelModule::class, StatisticsFragmentModule::class, StatisticsVMModule::class, TrainingViewFragmentModule::class, TrainingViewVMModule::class])
 object MainActivityModule {
     @JvmStatic
     @Provides

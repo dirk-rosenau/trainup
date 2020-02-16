@@ -23,8 +23,9 @@ class StatisticsOverviewVM @Inject constructor(private val trainingRepository: T
 
     private fun loadStations() {
         viewModelScope.launch(Dispatchers.IO) {
-//            val stationsWithTrainingSets = trainingRepository.getStationsWithTrainingSets()
-//            _stationsWithTime.value = stationsWithTrainingSets
+            val stationsWithTrainingSets = trainingRepository.getStationsWithTrainingSets()
+
+            _stationsWithTime.postValue(stationsWithTrainingSets)
         }
     }
 }

@@ -30,6 +30,6 @@ interface StationDao {
     @Query("SELECT stations.*, training_sets.* FROM stations LEFT JOIN training_sets ON training_sets.stationId = stations.id GROUP BY stations.id ORDER BY training_sets.date DESC")
     fun getStatiosWithLatestEditedTime(): Observable<List<StationWithTime>>
 
-//    @Query("SELECT stations.*, training_sets.* FROM stations JOIN training_sets ON training_sets.stationId = stations.id")
-//    suspend fun getStationsWithTime(): List<@JvmSuppressWildcards StationWithTime>
+    @Query("SELECT stations.*, training_sets.* FROM stations JOIN training_sets ON training_sets.stationId = stations.id")
+    suspend fun getStationsWithTime(): List<@JvmSuppressWildcards StationWithTime>
 }

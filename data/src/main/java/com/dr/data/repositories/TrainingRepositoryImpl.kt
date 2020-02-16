@@ -38,8 +38,8 @@ class TrainingRepositoryImpl @Inject constructor(private val database: AppDataba
     override fun getStationsWithLatestEditedTrainingSet(): Observable<List<StationWithTime>> =
         database.stationDao().getStatiosWithLatestEditedTime().compose(applySchedulers())
 
-//    override suspend fun getStationsWithTrainingSets(): List<StationWithTime> =
-//        database.stationDao().getStationsWithTime()
+    override suspend fun getStationsWithTrainingSets(): List<StationWithTime> =
+        database.stationDao().getStationsWithTime()
 
 
     override fun saveStation(station: Station): Single<Long> {

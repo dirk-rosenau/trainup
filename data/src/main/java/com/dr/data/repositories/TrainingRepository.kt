@@ -1,7 +1,7 @@
 package com.dr.data.repositories
 
 import com.dr.data.entities.Station
-import com.dr.data.entities.StationWithTime
+import com.dr.data.entities.StationWithTrainingSet
 import com.dr.data.entities.TrainingSet
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -26,7 +26,7 @@ interface TrainingRepository {
     fun getInitialTrainingSetForStation(id: Long): Observable<TrainingSet>
 
     fun getTrainingSetsForActualTraining(stationId: Long): Observable<List<TrainingSet>>
-    fun getStationsWithLatestEditedTrainingSet(): Observable<List<StationWithTime>>
+    fun getStationsWithLatestEditedTrainingSet(): Observable<List<StationWithTrainingSet>>
 
-    suspend fun getStationsWithTrainingSets(): List<StationWithTime>
+    suspend fun getStationsWithTrainingSets(): List<StationWithTrainingSet>
 }

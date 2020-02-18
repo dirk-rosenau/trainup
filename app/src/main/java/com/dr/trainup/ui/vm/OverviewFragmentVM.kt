@@ -5,7 +5,7 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dr.data.entities.StationWithTime
+import com.dr.data.entities.StationWithTrainingSet
 import com.dr.data.repositories.TrainingRepository
 import com.dr.trainup.ui.model.ExerciseOverviewItem
 import com.trainup.common.util.Consumable
@@ -46,7 +46,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
     }
 
     // TODO move this to repository
-    private fun mapToOverviewItem(stationWithTime: StationWithTime): ExerciseOverviewItem {
+    private fun mapToOverviewItem(stationWithTime: StationWithTrainingSet): ExerciseOverviewItem {
         return ExerciseOverviewItem(
             stationWithTime.station.id,
             stationWithTime.station.name,
@@ -63,7 +63,7 @@ class OverviewFragmentVM @Inject constructor(private val trainingRepository: Tra
                 onError = { processError(it) }).addTo(compositeDisposable)
     }
 
-    private fun onStationDataLoaded(list: List<StationWithTime>?) {
+    private fun onStationDataLoaded(list: List<StationWithTrainingSet>?) {
         val itemVMList = mutableListOf<ExerciseOverviewItemVM>()
         list?.map { mapToOverviewItem(it) }?.forEach { item ->
             itemVMList.add(

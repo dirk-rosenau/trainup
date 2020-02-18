@@ -2,7 +2,7 @@ package com.dr.data.dao
 
 import androidx.room.*
 import com.dr.data.entities.Station
-import com.dr.data.entities.StationWithTime
+import com.dr.data.entities.StationWithTrainingSet
 import io.reactivex.Observable
 
 
@@ -28,8 +28,8 @@ interface StationDao {
     fun deleteStation(id: Long)
 
     @Query("SELECT stations.*, training_sets.* FROM stations LEFT JOIN training_sets ON training_sets.stationId = stations.id GROUP BY stations.id ORDER BY training_sets.date DESC")
-    fun getStatiosWithLatestEditedTime(): Observable<List<StationWithTime>>
+    fun getStatiosWithLatestEditedTime(): Observable<List<StationWithTrainingSet>>
 
     @Query("SELECT stations.*, training_sets.* FROM stations JOIN training_sets ON training_sets.stationId = stations.id")
-    suspend fun getStationsWithTime(): List<@JvmSuppressWildcards StationWithTime>
+    suspend fun getStationsWithTime(): List<@JvmSuppressWildcards StationWithTrainingSet>
 }

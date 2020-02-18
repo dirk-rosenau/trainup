@@ -2,7 +2,7 @@ package com.dr.data.repositories
 
 import com.dr.data.AppDatabase
 import com.dr.data.entities.Station
-import com.dr.data.entities.StationWithTime
+import com.dr.data.entities.StationWithTrainingSet
 import com.dr.data.entities.TrainingSet
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,10 +35,10 @@ class TrainingRepositoryImpl @Inject constructor(private val database: AppDataba
     override fun getFirstStation(): Observable<Station> =
         database.stationDao().getFirstStation().compose(applySchedulers())
 
-    override fun getStationsWithLatestEditedTrainingSet(): Observable<List<StationWithTime>> =
+    override fun getStationsWithLatestEditedTrainingSet(): Observable<List<StationWithTrainingSet>> =
         database.stationDao().getStatiosWithLatestEditedTime().compose(applySchedulers())
 
-    override suspend fun getStationsWithTrainingSets(): List<StationWithTime> =
+    override suspend fun getStationsWithTrainingSets(): List<StationWithTrainingSet> =
         database.stationDao().getStationsWithTime()
 
 

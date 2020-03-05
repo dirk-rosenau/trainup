@@ -4,18 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dr.data.entities.StationWithTime
-import com.dr.data.repositories.TrainingRepository
+import com.dr.trainup.statistics.usecase.GetStatisticsUseCase
+import com.dr.trainup.statistics.ui.model.Groupable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class StatisticsOverviewVM @Inject constructor(private val trainingRepository: TrainingRepository) :
+class StatisticsOverviewVM @Inject constructor(private val getStatisticsUseCase: GetStatisticsUseCase) :
     ViewModel() {
 
-    private val _stationsWithTime = MutableLiveData<List<StationWithTime>>()
-    val stationWithTime: LiveData<List<StationWithTime>> = _stationsWithTime
+
+    private val _stationsWithTime = MutableLiveData<List<Groupable>>()
+    val stationWithTime: LiveData<List<Groupable>> = _stationsWithTime
 
     init {
         loadStations()
@@ -23,9 +24,7 @@ class StatisticsOverviewVM @Inject constructor(private val trainingRepository: T
 
     private fun loadStations() {
         viewModelScope.launch(Dispatchers.IO) {
-            val stationsWithTrainingSets = trainingRepository.getStationsWithTrainingSets()
-
-            _stationsWithTime.postValue(stationsWithTrainingSets)
+            _stationsWithTime.postValue(getStatisticsUseCase.getStatisticItems())
         }
     }
 }

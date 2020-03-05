@@ -3,13 +3,14 @@ package com.dr.trainup.di
 import android.app.Application
 import com.dr.data.di.DataModule
 import com.dr.trainup.TrainUpApplication
+import com.dr.trainup.statistics.di.StatisticModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, ActivityModule::class, DataModule::class])
+@Component(modules = [AndroidInjectionModule::class, ActivityModule::class, DataModule::class, StatisticModule::class])
 interface AppComponent {
     @Component.Builder
     interface Builder {

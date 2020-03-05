@@ -1,3 +1,4 @@
 <resources>
     <string name="empty" />
+    <string name="rawString" translatable="false">%1$s</string>
 </resources>

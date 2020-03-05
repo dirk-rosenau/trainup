@@ -11,7 +11,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="rawString" translatable="false">%1$s</string>
     <string name="yesterday">yesterday</string>
     <string name="today">today</string>
 </resources>

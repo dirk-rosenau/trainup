@@ -1,10 +1,10 @@
 package com.dr.trainup.statistics.ui.model
 
-import com.dr.trainup.statistics.ui.model.items.DateItemContainer
+import com.dr.trainup.statistics.ui.model.items.DateItemData
 import com.dr.trainup.statistics.ui.model.items.ItemContainer
 
 class DateGroupable(
-    private val item: DateItemContainer,
+    private val item: DateItemData,
     private val children: List<Groupable>
 ) :
     Groupable {

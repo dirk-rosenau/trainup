@@ -28,4 +28,6 @@ fun Long.convertToLocalDateString(): StringResource =
     R.string.rawString.toStrResource(
         SimpleDateFormat(
             "dd.MM.yyyy",
-            Locale.getDefault()))
+            Locale.getDefault()
+        ).format(this)
+    )

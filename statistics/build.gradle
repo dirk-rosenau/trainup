@@ -8,7 +8,6 @@ android {
     buildToolsVersion "29.0.2"
 
     android {
-        viewBinding.enabled = true
         dataBinding.enabled = true
     }
 
@@ -42,6 +41,11 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
 
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "androidx.legacy:legacy-support-v4:$androidx_legacy_support_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_extension_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_viewmodel_ktx_version"
+
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
@@ -52,9 +56,6 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

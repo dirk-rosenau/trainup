@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">statistics</string>
+    <string name="stationInfo">%1$d Sätze, %2$.1f %3$s max</string>
 
 </resources>

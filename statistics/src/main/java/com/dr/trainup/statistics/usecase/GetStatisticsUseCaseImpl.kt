@@ -5,8 +5,8 @@ import com.dr.data.repositories.TrainingRepository
 import com.dr.trainup.statistics.ui.model.DateGroupable
 import com.dr.trainup.statistics.ui.model.Groupable
 import com.dr.trainup.statistics.ui.model.StationGroupable
-import com.dr.trainup.statistics.ui.model.items.DateItemContainer
-import com.dr.trainup.statistics.ui.model.items.StationItem
+import com.dr.trainup.statistics.ui.model.items.DateItemData
+import com.dr.trainup.statistics.ui.model.items.StationItemData
 import com.trainup.common.extensions.convertToDayStartMillis
 import com.trainup.common.extensions.convertToLocalDateString
 import javax.inject.Inject
@@ -56,14 +56,14 @@ class GetStatisticsUseCaseImpl @Inject constructor(private val repository: Train
     private fun buildStatisticViewItems(map: Map<Long, List<StationWithTrainingSet>>): MutableList<Groupable> {
         val dateContainerList = mutableListOf<Groupable>()
         map.forEach { entry ->
-            val dateContainer = DateItemContainer(entry.key.convertToLocalDateString())
+            val dateContainer = DateItemData(entry.key.convertToLocalDateString())
             val stationChildren = mutableListOf<StationGroupable>()
             entry.value.sortedBy { it.trainingSet?.date }.distinctBy { it.station.id }.forEach {
                 stationChildren.add(
                     StationGroupable(
-                        StationItem(
+                        StationItemData(
                             it.station.name,
-                            it.station.actualWeight.toString(),
+                            it.station.actualWeight,
                             it.station.actualWeightUnit,
                             it.trainingSet?.repeats ?: 0
                         )

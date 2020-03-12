@@ -3,6 +3,7 @@ package com.dr.trainup.trainingview.vm
 import android.app.Application
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.viewModelScope
 import com.dr.data.entities.Station
 import com.dr.data.entities.TrainingSet
 import com.dr.data.repositories.TrainingRepository
@@ -10,6 +11,7 @@ import com.dr.trainup.trainingview.R
 import com.trainup.common.ObservableViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TrainingViewVM @Inject constructor(
@@ -77,7 +79,9 @@ class TrainingViewVM @Inject constructor(
 
     private fun updateStation(station: Station?) {
         station?.let {
-            trainingRepository.updateStation(it).subscribe()
+            viewModelScope.launch {
+                trainingRepository.saveStation(station)
+            }
         }
     }
 

@@ -42,21 +42,20 @@ class TrainingRepositoryImpl @Inject constructor(private val database: AppDataba
         database.stationDao().getStationsWithTime()
 
 
-    override fun saveStation(station: Station): Single<Long> {
-        return Single.fromCallable {
-            database.stationDao().insertStation(station)
-        }.compose(applySchedulersSingle())
+    override suspend fun saveStation(station: Station): Long {
+        with(database.stationDao()) {
+            if (existsStation(station.id)) {
+                coroutineUpdateStation(station)
+                return -1
+            } else {
+                return coroutineInsertStation(station)
+            }
+        }
     }
 
     override fun deleteStation(id: Long): Completable {
         return CompletableFromCallable {
             database.stationDao().deleteStation(id)
-        }.compose(applySchedulersCompletable())
-    }
-
-    override fun updateStation(station: Station): Completable {
-        return Completable.fromCallable {
-            database.stationDao().updateStation(station)
         }.compose(applySchedulersCompletable())
     }
 

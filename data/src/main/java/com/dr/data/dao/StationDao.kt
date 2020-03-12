@@ -32,4 +32,13 @@ interface StationDao {
 
     @Query("SELECT stations.*, training_sets.* FROM stations JOIN training_sets ON training_sets.stationId = stations.id")
     suspend fun getStationsWithTime(): List<@JvmSuppressWildcards StationWithTrainingSet>
+
+    @Query("SELECT EXISTS (SELECT id FROM stations WHERE id = :id)")
+    suspend fun existsStation(id: Long): Boolean
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun coroutineInsertStation(station: Station): Long
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun coroutineUpdateStation(station: Station)
 }

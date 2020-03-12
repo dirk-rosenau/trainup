@@ -1,15 +1,16 @@
 package com.dr.trainup.trainingeditor.ui.vm
 
 import android.app.Application
-import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.dr.data.entities.Station
 import com.dr.data.repositories.TrainingRepository
 import com.trainup.common.ObservableViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TrainingEditorViewModel @Inject constructor(
@@ -86,11 +87,10 @@ class TrainingEditorViewModel @Inject constructor(
                     seatPosition
                 )
 
-            trainingRepository.saveStation(station)
-                .subscribe(
-                    { stationSaved.value = true },
-                    { t: Throwable? -> Log.d("Errorrr", t?.localizedMessage) })
-                .addTo(disposables)
+            viewModelScope.launch {
+                trainingRepository.saveStation(station)
+                stationSaved.value = true
+            }
         }
     }
 

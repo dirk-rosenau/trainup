@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dimen_spacing_10">10dp</dimen>
-    <dimen name="dimen_spacing_80">80dp</dimen>
-    <dimen name="dimen_spacing_40">40dp</dimen>
-    <dimen name="dimen_spacing_60">60dp</dimen>
-
     <dimen name="dimen_plusminus_button_size">48dp</dimen>
-
 </resources>

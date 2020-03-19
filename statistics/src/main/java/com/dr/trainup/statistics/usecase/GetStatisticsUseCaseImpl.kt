@@ -58,13 +58,13 @@ class GetStatisticsUseCaseImpl @Inject constructor(private val repository: Train
         map.forEach { entry ->
             val dateContainer = DateItemData(entry.key.convertToLocalDateString())
             val stationChildren = mutableListOf<StationGroupable>()
-            entry.value.sortedBy { it.trainingSet?.date }.distinctBy { it.station.id }.forEach {
+            entry.value.sortedByDescending { it.trainingSet?.weight }.distinctBy { it.station.id }.forEach {
                 stationChildren.add(
                     StationGroupable(
                         StationItemData(
                             it.station.name,
-                            it.station.actualWeight,
-                            it.station.actualWeightUnit,
+                            it.trainingSet?.weight ?: 0f,
+                            it.trainingSet?.weightUnit ?: "",
                             it.trainingSet?.repeats ?: 0
                         )
                     )

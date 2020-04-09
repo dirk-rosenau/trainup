@@ -31,7 +31,7 @@ class ExerciseOverviewItemVM(
         if (item.lastExercise.isToday()) {
             return R.color.colorGreen
         }
-        return R.color.colorAccent
+        return R.color.colorGrey
     }
 
     @get:Bindable

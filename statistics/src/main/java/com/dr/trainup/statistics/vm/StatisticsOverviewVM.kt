@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dr.trainup.statistics.usecase.GetStatisticsUseCase
+import com.dr.trainup.statistics.usecase.GetStatisticsOverviewUseCase
 import com.dr.trainup.statistics.ui.model.Groupable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class StatisticsOverviewVM @Inject constructor(private val getStatisticsUseCase: GetStatisticsUseCase) :
+class StatisticsOverviewVM @Inject constructor(private val getStatisticsUseCase: GetStatisticsOverviewUseCase) :
     ViewModel() {
 
 

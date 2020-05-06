@@ -11,8 +11,8 @@ import com.trainup.common.extensions.convertToDayStartMillis
 import com.trainup.common.extensions.convertToLocalDateString
 import javax.inject.Inject
 
-class GetStatisticsUseCaseImpl @Inject constructor(private val repository: TrainingRepository) :
-    GetStatisticsUseCase {
+class GetStatisticsOverviewUseCaseImpl @Inject constructor(private val repository: TrainingRepository) :
+    GetStatisticsOverviewUseCase {
     override suspend fun getStatisticItems(): List<Groupable> {
         val stationsWithTrainingSets = repository.getStationsWithTrainingSets()
         val dayMap = sortDataPerDay(stationsWithTrainingSets)
@@ -55,21 +55,26 @@ class GetStatisticsUseCaseImpl @Inject constructor(private val repository: Train
 
     private fun buildStatisticViewItems(map: Map<Long, List<StationWithTrainingSet>>): MutableList<Groupable> {
         val dateContainerList = mutableListOf<Groupable>()
-        map.forEach { entry ->
-            val dateContainer = DateItemData(entry.key.convertToLocalDateString())
+        map.forEach { mapEntry ->
+            val date = mapEntry.key
+            val dateContainer = DateItemData(date.convertToLocalDateString())
             val stationChildren = mutableListOf<StationGroupable>()
-            entry.value.sortedByDescending { it.trainingSet?.weight }.distinctBy { it.station.id }.forEach {
-                stationChildren.add(
-                    StationGroupable(
-                        StationItemData(
-                            it.station.name,
-                            it.trainingSet?.weight ?: 0f,
-                            it.trainingSet?.weightUnit ?: "",
-                            it.trainingSet?.repeats ?: 0
+            mapEntry.value.sortedByDescending { it.trainingSet?.weight }
+                .distinctBy { it.station.id }
+                .forEach {
+                    stationChildren.add(
+                        StationGroupable(
+                            StationItemData(
+                                it.station.id,
+                                date,
+                                it.station.name,
+                                it.trainingSet?.weight ?: 0f,
+                                it.trainingSet?.weightUnit ?: "",
+                                it.trainingSet?.repeats ?: 0
+                            )
                         )
                     )
-                )
-            }
+                }
             dateContainerList.add(
                 DateGroupable(
                     dateContainer,

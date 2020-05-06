@@ -7,7 +7,10 @@ import com.dr.trainup.statistics.ui.model.items.StationItemData
 import com.trainup.common.util.StringResource
 import com.trainup.common.util.toStrResource
 
-class StationItemVM(private val stationItemData: StationItemData) : BaseObservable() {
+class StationItemVM(
+    private val stationItemData: StationItemData,
+    private val onIntent: (StatisticsIntent) -> Unit
+) : BaseObservable() {
 
     @get:Bindable
     val name: String
@@ -19,4 +22,8 @@ class StationItemVM(private val stationItemData: StationItemData) : BaseObservab
             stationItemData.weight,
             stationItemData.weightUnit
         )
+
+    fun onClick() {
+        onIntent(SelectExerciseIntent(stationItemData.stationId, stationItemData.exerciseDate))
+    }
 }

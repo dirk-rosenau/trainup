@@ -13,11 +13,12 @@ import com.dr.trainup.statistics.ui.model.items.DateItemData
 import com.dr.trainup.statistics.ui.model.items.StationItemData
 import com.dr.trainup.statistics.vm.DateGroupVM
 import com.dr.trainup.statistics.vm.StationItemVM
+import com.dr.trainup.statistics.vm.StatisticsIntent
 
-class StatisticsAdapter(private val data: List<Groupable>) :
+class StatisticsAdapter(private val onIntent: (StatisticsIntent) -> Unit, private val data: List<Groupable>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val internalList = mutableListOf<Groupable>()
+    private val internalItemList = mutableListOf<Groupable>()
 
     companion object {
         const val VIEW_TYPE_DATE = 1
@@ -31,15 +32,15 @@ class StatisticsAdapter(private val data: List<Groupable>) :
 
     private fun unfoldList() {
         data.forEach {
-            internalList.add(it)
-            it.getChildren()?.let { children -> internalList.addAll(children) }
+            internalItemList.add(it)
+            it.getChildren()?.let { children -> internalItemList.addAll(children) }
         }
     }
 
-    override fun getItemCount(): Int = internalList.size
+    override fun getItemCount(): Int = internalItemList.size
 
     override fun getItemViewType(position: Int): Int {
-        return when (internalList[position]) {
+        return when (internalItemList[position]) {
             is DateGroupable -> VIEW_TYPE_DATE
             else -> VIEW_TYPE_STATION
         }
@@ -57,11 +58,11 @@ class StatisticsAdapter(private val data: List<Groupable>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val itemData = internalList[position].getItemContainer()
+        val itemData = internalItemList[position].getItemContainer()
         if (holder is DateGroupViewHolder) {
             holder.binding.vm = DateGroupVM(itemData as DateItemData)
         } else if (holder is StationViewHolder) {
-            holder.binding.vm = StationItemVM(itemData as StationItemData)
+            holder.binding.vm = StationItemVM(itemData as StationItemData, onIntent)
         }
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,12 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dr.trainup.statistics.R
 import com.dr.trainup.statistics.databinding.FragmentStatisticsBinding
 import com.dr.trainup.statistics.ui.model.Groupable
+import com.dr.trainup.statistics.vm.SelectExerciseIntent
+import com.dr.trainup.statistics.vm.StatisticsIntent
 import com.dr.trainup.statistics.vm.StatisticsOverviewVM
+import com.trainup.common.extensions.convertToLocalDateString
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class StatisticsFragment : Fragment() {
-
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -45,14 +48,32 @@ class StatisticsFragment : Fragment() {
         binding.statisticsRecycler.layoutManager = LinearLayoutManager(requireContext())
 
         return binding.root
-
-        //return inflater.inflate(R.layout.fragment_statistics, container, false)
-
     }
 
     private fun createAdapter(data: List<Groupable>) {
-        val adapter = StatisticsAdapter(data)
+        val adapter = StatisticsAdapter(::onIntent, data)
         binding.statisticsRecycler.adapter = adapter
+    }
+
+    private fun onIntent(intent: StatisticsIntent) {
+        when (intent) {
+            is SelectExerciseIntent -> openExerciseDialog(intent)
+            else -> {
+                // DO nothing
+            }
+        }
+
+    }
+
+    private fun openExerciseDialog(intent: SelectExerciseIntent) {
+        // TODO open dialog
+        Toast.makeText(
+            this.context,
+            "Opened exercise ${intent.stationId} for date ${(intent.date.convertToLocalDateString()).resolve(
+                this.context!!
+            )}",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onAttach(context: Context) {
